@@ -58,6 +58,11 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('actiontype/apiDelete', 'ActionTypeController@apiDelete');
         Route::resource('actiontype', 'ActionTypeController');
 
+        //Department
+        Route::post('department/apiList', 'DepartmentController@apiList');
+        Route::post('department/apiDelete', 'DepartmentController@apiDelete');
+        Route::resource('department', 'DepartmentController');
+
         //Division
         Route::post('division/apiList', 'DivisionController@apiList');
         Route::post('division/apiDelete', 'DivisionController@apiDelete');
