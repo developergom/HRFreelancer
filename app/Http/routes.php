@@ -101,6 +101,11 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('clienttype/apiDelete', 'ClientTypeController@apiDelete');
         Route::resource('clienttype', 'ClientTypeController');
 
+        //Division
+        Route::post('division/apiList', 'DivisionController@apiList');
+        Route::post('division/apiDelete', 'DivisionController@apiDelete');
+        Route::resource('division', 'DivisionController');
+
         //Event Type
         Route::post('eventtype/apiList', 'EventTypeController@apiList');
         Route::post('eventtype/apiDelete', 'EventTypeController@apiDelete');
