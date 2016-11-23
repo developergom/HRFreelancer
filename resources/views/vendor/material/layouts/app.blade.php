@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Intranet ASM Apps</title>
+        <title>{!! Cache::get('setting_app_name') !!}</title>
 
         <!-- Vendor CSS -->
         <link href="{{ url('css/fullcalendar.min.css') }}" rel="stylesheet">
@@ -53,34 +53,7 @@
                         <li id="top-search">
                             <a href="#"><i class="tm-icon zmdi zmdi-search"></i></a>
                         </li>
-
-                        <li class="dropdown">
-                            <a data-toggle="dropdown" href="#">
-                                <i class="tm-icon zmdi zmdi-email"></i>
-                                <i class="tmn-counts">0</i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg pull-right">
-                                <div class="listview">
-                                    <div class="lv-header">
-                                        Messages
-                                    </div>
-                                    <div class="lv-body">
-                                        <a class="lv-item" href="#">
-                                            <div class="media">
-                                                <div class="pull-left">
-                                                    <img class="lv-img-sm" src="#" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="lv-title">Jonathan Morris</div>
-                                                    <small class="lv-small">Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <a class="lv-footer" href="#">View All</a>
-                                </div>
-                            </div>
-                        </li>
+                        
                         <li class="dropdown">
                             <a data-toggle="dropdown" href="#">
                                 <i class="tm-icon zmdi zmdi-notifications"></i>

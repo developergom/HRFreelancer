@@ -58,58 +58,10 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('actiontype/apiDelete', 'ActionTypeController@apiDelete');
         Route::resource('actiontype', 'ActionTypeController');
 
-        //Advertise Position
-        Route::post('advertiseposition/apiList', 'AdvertisePositionController@apiList');
-        Route::post('advertiseposition/apiDelete', 'AdvertisePositionController@apiDelete');
-        Route::resource('advertiseposition', 'AdvertisePositionController');
-
-        //Advertise Rate
-        Route::post('advertiserate/apiList', 'AdvertiseRateController@apiList');
-        Route::post('advertiserate/apiDelete', 'AdvertiseRateController@apiDelete');
-        Route::resource('advertiserate', 'AdvertiseRateController');
-
-        //Advertise Size
-        Route::post('advertisesize/apiList', 'AdvertiseSizeController@apiList');
-        Route::post('advertisesize/apiDelete', 'AdvertiseSizeController@apiDelete');
-        Route::resource('advertisesize', 'AdvertiseSizeController');
-
-        //Agenda Type
-        Route::post('agendatype/apiList', 'AgendaTypeController@apiList');
-        Route::post('agendatype/apiDelete', 'AgendaTypeController@apiDelete');
-        Route::resource('agendatype', 'AgendaTypeController');
-
-        //Brand
-        Route::post('brand/apiList', 'BrandController@apiList');
-        Route::post('brand/apiDelete', 'BrandController@apiDelete');
-        Route::resource('brand', 'BrandController');
-
-        //Client
-        Route::post('client/apiList', 'ClientController@apiList');
-        Route::post('client/apiDelete', 'ClientController@apiDelete');
-        Route::get('client/apiSearch/{query}', 'ClientController@apiSearch');
-        Route::resource('client', 'ClientController');
-
-        //Client Contact
-        Route::post('clientcontact/apiSave', 'ClientContactController@apiSave');
-        Route::post('clientcontact/apiDelete', 'ClientContactController@apiDelete');
-        Route::post('clientcontact/apiList', 'ClientContactController@apiList');
-        Route::post('clientcontact/apiEdit', 'ClientContactController@apiEdit');
-        Route::get('clientcontact/apiSearch/{query}', 'ClientContactController@apiSearch');
-
-        //Client Type
-        Route::post('clienttype/apiList', 'ClientTypeController@apiList');
-        Route::post('clienttype/apiDelete', 'ClientTypeController@apiDelete');
-        Route::resource('clienttype', 'ClientTypeController');
-
         //Division
         Route::post('division/apiList', 'DivisionController@apiList');
         Route::post('division/apiDelete', 'DivisionController@apiDelete');
         Route::resource('division', 'DivisionController');
-
-        //Event Type
-        Route::post('eventtype/apiList', 'EventTypeController@apiList');
-        Route::post('eventtype/apiDelete', 'EventTypeController@apiDelete');
-        Route::resource('eventtype', 'EventTypeController');
 
         //Flow
         Route::post('flow/apiList', 'FlowController@apiList');
@@ -132,37 +84,6 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('holiday/apiDelete', 'HolidayController@apiDelete');
         Route::resource('holiday', 'HolidayController');
 
-        //Industry
-        Route::post('industry/apiList', 'IndustryController@apiList');
-        Route::post('industry/apiDelete', 'IndustryController@apiDelete');
-        Route::resource('industry', 'IndustryController');
-
-        //Inventory Type
-        Route::post('inventorytype/apiList', 'InventoryTypeController@apiList');
-        Route::post('inventorytype/apiDelete', 'InventoryTypeController@apiDelete');
-        Route::resource('inventorytype', 'InventoryTypeController');
-
-        //Media
-        Route::post('media/apiList', 'MediaController@apiList');
-        Route::post('media/apiDelete', 'MediaController@apiDelete');
-        Route::resource('media', 'MediaController');
-
-        //Media Category
-        Route::post('mediacategory/apiList', 'MediaCategoryController@apiList');
-        Route::post('mediacategory/apiDelete', 'MediaCategoryController@apiDelete');
-        Route::resource('mediacategory', 'MediaCategoryController');
-
-        //Media Edition
-        Route::post('mediaedition/apiSave', 'MediaEditionController@apiSave');
-        Route::post('mediaedition/apiDelete', 'MediaEditionController@apiDelete');
-        Route::post('mediaedition/apiList', 'MediaEditionController@apiList');
-        Route::post('mediaedition/apiEdit', 'MediaEditionController@apiEdit');
-
-        //Media Group
-        Route::post('mediagroup/apiList', 'MediaGroupController@apiList');
-        Route::post('mediagroup/apiDelete', 'MediaGroupController@apiDelete');
-        Route::resource('mediagroup', 'MediaGroupController');
-
         //Menu
         Route::post('menu/apiList', 'MenuController@apiList');
         Route::post('menu/apiDelete', 'MenuController@apiDelete');
@@ -180,15 +101,10 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('notificationtype/apiDelete', 'NotificationTypeController@apiDelete');
         Route::resource('notificationtype', 'NotificationTypeController');
 
-        //Paper Type
-        Route::post('paper/apiList', 'PaperController@apiList');
-        Route::post('paper/apiDelete', 'PaperController@apiDelete');
-        Route::resource('paper', 'PaperController');
-
-        //Proposal Type
-        Route::post('proposaltype/apiList', 'ProposalTypeController@apiList');
-        Route::post('proposaltype/apiDelete', 'ProposalTypeController@apiDelete');
-        Route::resource('proposaltype', 'ProposalTypeController');
+        //Position
+        Route::post('position/apiList', 'PositionController@apiList');
+        Route::post('position/apiDelete', 'PositionController@apiDelete');
+        Route::resource('position', 'PositionController');
 
         //Religion
         Route::post('religion/apiList', 'ReligionController@apiList');
@@ -199,33 +115,6 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('role/apiList', 'RoleController@apiList');
         Route::post('role/apiEdit', 'RoleController@apiEdit');
         Route::resource('role', 'RoleController');
-
-        //Sub Industry
-        Route::post('subindustry/apiList', 'SubIndustryController@apiList');
-        Route::post('subindustry/apiDelete', 'SubIndustryController@apiDelete');
-        Route::post('subindustry/apiGetOption', 'SubIndustryController@apiGetOption');
-        Route::resource('subindustry', 'SubIndustryController');
-
-        //Unit
-        Route::post('unit/apiList', 'UnitController@apiList');
-        Route::post('unit/apiDelete', 'UnitController@apiDelete');
-        Route::resource('unit', 'UnitController');
-    });
-
-    Route::group(['prefix' => 'plan'], function() {
-        //Action Plan
-        Route::post('actionplan/apiList/{listtype}', 'ActionPlanController@apiList');
-        Route::post('actionplan/apiDelete', 'ActionPlanController@apiDelete');
-        Route::resource('actionplan', 'ActionPlanController');
-        Route::get('actionplan/approve/{flow_no}/{id}', 'ActionPlanController@approve');
-        Route::post('actionplan/approve/{flow_no}/{id}', 'ActionPlanController@postApprove');
-    });
-
-    Route::group(['prefix' => 'agenda'], function() {
-        //Agenda Plan
-        Route::post('plan/apiList', 'AgendaController@apiList');
-        Route::post('plan/apiDelete', 'AgendaController@apiDelete');
-        Route::resource('plan', 'AgendaController');
     });
 
     Route::group(['prefix' => 'config'], function() {
