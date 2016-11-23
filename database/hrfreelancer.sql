@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `masterapp` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `masterapp`;
--- MySQL dump 10.13  Distrib 5.7.15, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Host: localhost    Database: masterapp
+-- Host: localhost    Database: hrfreelancer
 -- ------------------------------------------------------
--- Server version	5.7.15-0ubuntu0.16.04.1
+-- Server version	5.7.16-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -97,7 +95,7 @@ CREATE TABLE `actions_modules` (
 
 LOCK TABLES `actions_modules` WRITE;
 /*!40000 ALTER TABLE `actions_modules` DISABLE KEYS */;
-INSERT INTO `actions_modules` VALUES (1,2),(2,2),(3,2),(4,2),(2,1),(2,4),(2,12),(1,13),(2,3),(1,4),(3,4),(4,4),(1,12),(3,12),(4,12),(2,13),(3,13),(4,13),(1,19),(2,19),(3,19),(4,19),(1,20),(2,20),(3,20),(4,20),(1,23),(2,23),(3,23),(4,23),(1,24),(2,24),(3,24),(4,24),(1,27),(2,27),(3,27),(4,27),(1,30),(2,30),(3,30),(4,30),(1,31),(2,31),(3,31),(4,31),(2,35),(1,36),(2,36),(3,36),(4,36),(1,37),(2,37),(3,37),(4,37);
+INSERT INTO `actions_modules` VALUES (1,2),(2,2),(3,2),(4,2),(2,1),(2,4),(2,12),(1,13),(2,3),(1,4),(3,4),(4,4),(1,12),(3,12),(4,12),(2,13),(3,13),(4,13),(1,19),(2,19),(3,19),(4,19),(1,20),(2,20),(3,20),(4,20),(1,23),(2,23),(3,23),(4,23),(1,24),(2,24),(3,24),(4,24),(1,27),(2,27),(3,27),(4,27),(1,30),(2,30),(3,30),(4,30),(1,31),(2,31),(3,31),(4,31),(2,35),(1,36),(2,36),(3,36),(4,36),(1,37),(2,37),(3,37),(4,37),(1,38),(2,38),(3,38),(4,38),(1,39),(2,39),(3,39),(4,39),(1,40),(2,40),(3,40),(4,40);
 /*!40000 ALTER TABLE `actions_modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +127,7 @@ CREATE TABLE `announcements` (
 
 LOCK TABLES `announcements` WRITE;
 /*!40000 ALTER TABLE `announcements` DISABLE KEYS */;
-INSERT INTO `announcements` VALUES (1,'Pengumuman 1','Pengumuman 1 Yes','2016-10-06','2016-10-10','1',1,1,'2016-10-05 22:27:02','2016-10-05 22:32:37'),(2,'Pengumuman 2','Pengumuman 2 YA','2016-10-06','2016-10-06','1',1,0,'2016-10-05 22:33:08','2016-10-05 22:33:08'),(3,'Pengumuman 3','Pengumuman3','2016-10-06','2016-10-07','1',1,0,'2016-10-05 22:33:35','2016-10-05 22:33:35'),(4,'Pengumuman 4','Kemarin','2016-10-01','2016-10-06','1',1,0,'2016-10-05 22:38:42','2016-10-05 22:38:42'),(5,'Pengumuman 5','Pengumuman 5','2016-10-05','2016-10-08','1',1,0,'2016-10-05 22:39:16','2016-10-05 22:39:16');
+INSERT INTO `announcements` VALUES (1,'Development','This application is under maintenance','2016-11-23','2016-12-12','1',1,16,'2016-10-05 22:27:02','2016-11-23 01:56:30'),(2,'Pengumuman 2','Pengumuman 2 YA','2016-10-06','2016-10-06','1',1,0,'2016-10-05 22:33:08','2016-10-05 22:33:08'),(3,'Pengumuman 3','Pengumuman3','2016-10-06','2016-10-07','1',1,0,'2016-10-05 22:33:35','2016-10-05 22:33:35'),(4,'Pengumuman 4','Kemarin','2016-10-01','2016-10-06','1',1,0,'2016-10-05 22:38:42','2016-10-05 22:38:42'),(5,'Pengumuman 5','Pengumuman 5','2016-10-05','2016-10-08','1',1,0,'2016-10-05 22:39:16','2016-10-05 22:39:16');
 /*!40000 ALTER TABLE `announcements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,6 +188,67 @@ CREATE TABLE `configs` (
 LOCK TABLES `configs` WRITE;
 /*!40000 ALTER TABLE `configs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `configs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `departments`
+--
+
+DROP TABLE IF EXISTS `departments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `departments` (
+  `department_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `division_id` int(11) NOT NULL,
+  `department_name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `department_desc` text CHARACTER SET utf8 NOT NULL,
+  `active` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`department_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `departments`
+--
+
+LOCK TABLES `departments` WRITE;
+/*!40000 ALTER TABLE `departments` DISABLE KEYS */;
+INSERT INTO `departments` VALUES (1,2,'HR Department','HR Department','1',1,1,'2016-11-23 01:47:22','2016-11-23 01:48:07');
+/*!40000 ALTER TABLE `departments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `divisions`
+--
+
+DROP TABLE IF EXISTS `divisions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `divisions` (
+  `division_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `division_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `division_desc` text COLLATE utf8_unicode_ci NOT NULL,
+  `active` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`division_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `divisions`
+--
+
+LOCK TABLES `divisions` WRITE;
+/*!40000 ALTER TABLE `divisions` DISABLE KEYS */;
+INSERT INTO `divisions` VALUES (1,'Business Division','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46'),(2,'HR & GA Division','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46'),(3,'Media Services Devision','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46'),(4,'Publishing General Interest Media Division','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46'),(5,'Publishing Special Interest Media Division','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46'),(6,'Publishing Women & Children Media Division 	','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46'),(7,'Strategic Management Office Division','','1',1,1,'2016-11-23 00:42:46','2016-11-23 00:42:46');
+/*!40000 ALTER TABLE `divisions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -295,6 +354,52 @@ INSERT INTO `flows` VALUES (1,1,'Creating Action Plan','/plan/actionplan/create'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `freelancers`
+--
+
+DROP TABLE IF EXISTS `freelancers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `freelancers` (
+  `freelancer_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_other` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `place_of_birth` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `gender` enum('Male','Female') COLLATE utf8_unicode_ci NOT NULL,
+  `last_education` enum('SMA/SMK','D1','D2','D3','D4','S1','S2','S3') COLLATE utf8_unicode_ci NOT NULL,
+  `npwp` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `bank` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_branch` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bank_account_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ktp_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ktp_city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ktp_village_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ktp_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `home_city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `home_village_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `home_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `active` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`freelancer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `freelancers`
+--
+
+LOCK TABLES `freelancers` WRITE;
+/*!40000 ALTER TABLE `freelancers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `freelancers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `groups`
 --
 
@@ -322,6 +427,40 @@ LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` VALUES (1,'Group 1','Group 1\r\n','1',1,1,'2016-06-10 06:31:03','2016-10-12 03:15:06'),(2,'Group 2','Group 2','1',1,1,'2016-06-10 06:31:48','2016-10-12 03:15:25'),(3,'Group 3','Group 3','1',1,1,'2016-06-10 06:32:00','2016-10-12 03:15:40'),(4,'Group 4','Group 4','1',1,1,'2016-06-10 06:32:10','2016-10-12 03:15:56'),(5,'Group 5','Group 5','1',1,1,'2016-06-10 06:32:19','2016-10-12 03:16:08'),(6,'Group 6','Group 6','1',1,1,'2016-08-30 04:31:42','2016-10-12 03:16:23');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `history_freelancers`
+--
+
+DROP TABLE IF EXISTS `history_freelancers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `history_freelancers` (
+  `history_freelancer_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `freelancer_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `position_id` int(11) NOT NULL,
+  `honor` double NOT NULL,
+  `honor_type` enum('harian','bulanan','by project','by karya') COLLATE utf8_unicode_ci NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `active` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`history_freelancer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history_freelancers`
+--
+
+LOCK TABLES `history_freelancers` WRITE;
+/*!40000 ALTER TABLE `history_freelancers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `history_freelancers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -375,7 +514,7 @@ CREATE TABLE `menus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +523,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,1,'Home','Menu for Home','zmdi zmdi-home',2,0,'1',1,1,'2016-07-13 21:05:14','2016-07-19 21:13:50'),(2,2,'Users Management','Menu for Users Management',NULL,2,0,'1',1,NULL,'2016-07-13 21:06:01','2016-07-13 21:06:01'),(3,3,'Master Data','Menu for Master Data',NULL,3,0,'1',1,NULL,'2016-07-13 21:06:47','2016-07-13 21:06:47'),(4,4,'Action Controls Management','Menu for Action Controls Management',NULL,1,3,'1',1,NULL,'2016-07-13 21:07:36','2016-07-13 21:07:36'),(12,12,'Groups Management','Menu for Groups Management',NULL,4,3,'1',1,1,'2016-07-13 21:14:54','2016-10-11 19:20:39'),(13,13,'Holidays Management','Menu for Holiday Management',NULL,5,3,'1',1,1,'2016-07-13 21:15:37','2016-10-11 19:20:40'),(19,19,'Menus Management','Menu for Menus Management',NULL,7,3,'1',1,1,'2016-07-13 21:20:30','2016-10-11 19:22:08'),(20,20,'Modules Management','Menu for Modules Management',NULL,9,3,'1',1,1,'2016-07-13 21:21:42','2016-10-11 19:22:09'),(23,23,'Religions Management','Menu for Religions Management',NULL,11,3,'1',1,1,'2016-07-13 21:23:45','2016-10-11 19:22:35'),(24,24,'Roles Management','Menu for Roles Management',NULL,12,3,'1',1,1,'2016-07-13 21:24:30','2016-10-11 19:22:35'),(27,27,'Flow Groups Management','Menu for Flow Groups Management','zmdi zmdi-home',3,3,'1',1,1,'2016-07-20 21:39:34','2016-10-11 19:20:40'),(30,30,'Flows Management','Menu for Flows Management','zmdi zmdi-home',2,3,'1',1,1,'2016-08-22 01:18:20','2016-10-11 19:20:40'),(31,31,'Notification Types Management','Menu for Notification Types Management','zmdi zmdi-home',10,3,'1',1,1,'2016-08-31 20:41:45','2016-10-11 19:22:09'),(35,35,'Configurations','Menu for configurations parents','zmdi zmdi-settings',4,0,'1',1,1,'2016-10-04 21:53:14','2016-10-11 19:22:27'),(36,36,'Application Settings','Menu for application settings','zmdi zmdi-settings-square',2,35,'1',1,1,'2016-10-04 21:54:28','2016-10-05 22:22:33'),(37,37,'Announcement Management','Menu for announcement management','zmdi zmdi-info',1,35,'1',1,1,'2016-10-05 22:07:21','2016-10-05 22:22:33');
+INSERT INTO `menus` VALUES (1,1,'Home','Menu for Home','zmdi zmdi-home',2,0,'1',1,1,'2016-07-13 21:05:14','2016-07-19 21:13:50'),(2,2,'Users Management','Menu for Users Management',NULL,2,0,'1',1,NULL,'2016-07-13 21:06:01','2016-07-13 21:06:01'),(3,3,'Master Data','Menu for Master Data',NULL,3,0,'1',1,NULL,'2016-07-13 21:06:47','2016-07-13 21:06:47'),(4,4,'Action Controls Management','Menu for Action Controls Management',NULL,1,3,'1',1,NULL,'2016-07-13 21:07:36','2016-07-13 21:07:36'),(12,12,'Groups Management','Menu for Groups Management',NULL,6,3,'1',1,1,'2016-07-13 21:14:54','2016-11-23 01:41:15'),(13,13,'Holidays Management','Menu for Holiday Management',NULL,7,3,'1',1,1,'2016-07-13 21:15:37','2016-11-23 01:41:15'),(19,19,'Menus Management','Menu for Menus Management',NULL,9,3,'1',1,1,'2016-07-13 21:20:30','2016-11-23 01:41:15'),(20,20,'Modules Management','Menu for Modules Management',NULL,12,3,'1',1,1,'2016-07-13 21:21:42','2016-11-23 01:41:15'),(23,23,'Religions Management','Menu for Religions Management',NULL,14,3,'1',1,1,'2016-07-13 21:23:45','2016-11-23 01:41:15'),(24,24,'Roles Management','Menu for Roles Management',NULL,15,3,'1',1,1,'2016-07-13 21:24:30','2016-11-23 01:41:15'),(27,27,'Flow Groups Management','Menu for Flow Groups Management','zmdi zmdi-home',5,3,'1',1,1,'2016-07-20 21:39:34','2016-11-23 01:41:15'),(30,30,'Flows Management','Menu for Flows Management','zmdi zmdi-home',4,3,'1',1,1,'2016-08-22 01:18:20','2016-11-23 01:41:15'),(31,31,'Notification Types Management','Menu for Notification Types Management','zmdi zmdi-home',13,3,'1',1,1,'2016-08-31 20:41:45','2016-11-23 01:41:15'),(35,35,'Configurations','Menu for configurations parents','zmdi zmdi-settings',4,0,'1',1,1,'2016-10-04 21:53:14','2016-10-11 19:22:27'),(36,36,'Application Settings','Menu for application settings','zmdi zmdi-settings-square',2,35,'1',1,1,'2016-10-04 21:54:28','2016-10-05 22:22:33'),(37,37,'Announcement Management','Menu for announcement management','zmdi zmdi-info',1,35,'1',1,1,'2016-10-05 22:07:21','2016-10-05 22:22:33'),(38,38,'Divisions Management','Menu for Division Management','zmdi zmdi-link',3,3,'1',1,1,'2016-11-23 01:02:25','2016-11-23 01:41:15'),(39,39,'Positions Management','Menu for Positions Management','zmdi zmdi-link',11,3,'1',1,1,'2016-11-23 01:17:19','2016-11-23 01:41:15'),(40,40,'Departments Management','Menu for Departments Management','zmdi zmdi-link',2,3,'1',1,NULL,'2016-11-23 01:41:15','2016-11-23 01:41:15');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,7 +568,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2016_05_11_093524_create_roles_table',1),('2016_05_11_094826_create_users_roles_table',1),('2016_05_11_094847_create_modules_table',1),('2016_05_11_094858_create_menus_table',1),('2016_05_11_094918_create_actions_table',1),('2016_05_11_094929_create_configs_table',1),('2016_05_11_094943_create_menus_modules_table',1),('2016_05_11_094955_create_roles_modules_table',1),('2016_05_12_071210_create_users_medias_table',1),('2016_05_12_071232_create_users_subindustries_table',1),('2016_05_12_071452_create_media_groups_table',1),('2016_05_12_071922_create_media_categories_table',1),('2016_05_12_072147_create_medias_table',1),('2016_05_12_072517_create_media_editions_table',1),('2016_05_12_072947_create_papers',1),('2016_05_12_073325_create_units_table',1),('2016_05_12_073601_create_advertise_sizes_table',1),('2016_05_12_073613_create_advertise_positions_table',1),('2016_05_12_073625_create_advertise_rates_table',1),('2016_05_12_080341_create_holidays_table',1),('2016_05_12_080353_create_religions_table',1),('2016_05_12_080404_create_industries_table',1),('2016_05_12_080412_create_subindustries_table',1),('2016_05_12_080418_create_brands_table',1),('2016_05_12_081334_create_client_types_table',1),('2016_05_12_081343_create_clients_table',1),('2016_05_12_081350_create_clients_contacts_table',1),('2016_05_12_083328_create_client_products_table',1),('2016_05_12_083339_create_flow_groups_table',1),('2016_05_12_083347_create_flows_table',1),('2016_05_12_084514_create_action_types_table',1),('2016_05_12_084528_create_inventory_types_table',1),('2016_05_12_084540_create_proposal_types_table',1),('2016_05_12_084553_create_rkk_inventories_table',1),('2016_05_12_084600_create_rkk_proposals_table',1),('2016_05_26_072328_create_actions_modules_table',2),('2016_06_10_043804_create_groups_table',2),('2016_07_21_031419_create_users_groups_table',2),('2016_08_19_042103_create_action_plans_table',2),('2016_08_19_042635_create_action_plan_media_table',2),('2016_08_19_042654_create_action_plan_media_edition_table',2),('2016_08_19_042706_create_action_plan_uploads_table',2),('2016_08_19_083415_create_upload_files_table',3),('2016_08_19_083724_create_action_plan_upload_file_table',3),('2016_09_01_032400_create_notification_types_table',4),('2016_09_01_032410_create_notifications_table',4),('2016_09_02_040009_create_role_levels_table',5),('2016_09_02_093034_create_action_plan_histories_table',6),('2016_09_14_090001_create_download_table',7),('2016_09_15_094726_create_approval_type_table',8),('2016_09_27_041556_create_agenda_types_table',9),('2016_09_27_041603_create_agendas_table',9),('2016_09_27_041615_create_agendas_proposal_table',9),('2016_09_27_041626_create_agendas_inventories_table',9),('2016_09_27_041636_create_agendas_clients_table',9),('2016_09_27_041648_create_agendas_client_contacts_table',9),('2016_09_27_041657_create_agendas_users_table',9),('2016_10_05_043832_create_settings_table',10),('2016_10_06_041740_create_announcements_table',11);
+INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2016_05_11_093524_create_roles_table',1),('2016_05_11_094826_create_users_roles_table',1),('2016_05_11_094847_create_modules_table',1),('2016_05_11_094858_create_menus_table',1),('2016_05_11_094918_create_actions_table',1),('2016_05_11_094929_create_configs_table',1),('2016_05_11_094943_create_menus_modules_table',1),('2016_05_11_094955_create_roles_modules_table',1),('2016_05_12_071210_create_users_medias_table',1),('2016_05_12_071232_create_users_subindustries_table',1),('2016_05_12_071452_create_media_groups_table',1),('2016_05_12_071922_create_media_categories_table',1),('2016_05_12_072147_create_medias_table',1),('2016_05_12_072517_create_media_editions_table',1),('2016_05_12_072947_create_papers',1),('2016_05_12_073325_create_units_table',1),('2016_05_12_073601_create_advertise_sizes_table',1),('2016_05_12_073613_create_advertise_positions_table',1),('2016_05_12_073625_create_advertise_rates_table',1),('2016_05_12_080341_create_holidays_table',1),('2016_05_12_080353_create_religions_table',1),('2016_05_12_080404_create_industries_table',1),('2016_05_12_080412_create_subindustries_table',1),('2016_05_12_080418_create_brands_table',1),('2016_05_12_081334_create_client_types_table',1),('2016_05_12_081343_create_clients_table',1),('2016_05_12_081350_create_clients_contacts_table',1),('2016_05_12_083328_create_client_products_table',1),('2016_05_12_083339_create_flow_groups_table',1),('2016_05_12_083347_create_flows_table',1),('2016_05_12_084514_create_action_types_table',1),('2016_05_12_084528_create_inventory_types_table',1),('2016_05_12_084540_create_proposal_types_table',1),('2016_05_12_084553_create_rkk_inventories_table',1),('2016_05_12_084600_create_rkk_proposals_table',1),('2016_05_26_072328_create_actions_modules_table',2),('2016_06_10_043804_create_groups_table',2),('2016_07_21_031419_create_users_groups_table',2),('2016_08_19_042103_create_action_plans_table',2),('2016_08_19_042635_create_action_plan_media_table',2),('2016_08_19_042654_create_action_plan_media_edition_table',2),('2016_08_19_042706_create_action_plan_uploads_table',2),('2016_08_19_083415_create_upload_files_table',3),('2016_08_19_083724_create_action_plan_upload_file_table',3),('2016_09_01_032400_create_notification_types_table',4),('2016_09_01_032410_create_notifications_table',4),('2016_09_02_040009_create_role_levels_table',5),('2016_09_02_093034_create_action_plan_histories_table',6),('2016_09_14_090001_create_download_table',7),('2016_09_15_094726_create_approval_type_table',8),('2016_09_27_041556_create_agenda_types_table',9),('2016_09_27_041603_create_agendas_table',9),('2016_09_27_041615_create_agendas_proposal_table',9),('2016_09_27_041626_create_agendas_inventories_table',9),('2016_09_27_041636_create_agendas_clients_table',9),('2016_09_27_041648_create_agendas_client_contacts_table',9),('2016_09_27_041657_create_agendas_users_table',9),('2016_10_05_043832_create_settings_table',10),('2016_10_06_041740_create_announcements_table',11),('2016_11_23_064354_create_table_deparments',12),('2016_11_23_064401_create_table_divisions',12),('2016_11_23_064415_create_table_freelancers',12),('2016_11_23_064424_create_table_history_freelancers',12),('2016_11_23_064931_create_table_positions',12);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,7 +590,7 @@ CREATE TABLE `modules` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`module_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -460,7 +599,7 @@ CREATE TABLE `modules` (
 
 LOCK TABLES `modules` WRITE;
 /*!40000 ALTER TABLE `modules` DISABLE KEYS */;
-INSERT INTO `modules` VALUES (1,'/home','','Home for dashboard','1',1,NULL,'2016-07-13 20:37:38','2016-07-13 20:37:38'),(2,'/user','','Module for user management','1',1,NULL,'2016-07-13 20:38:20','2016-07-13 20:38:20'),(3,'/master/#','','Module for master data parent','1',1,NULL,'2016-07-13 20:39:14','2016-07-13 20:39:14'),(4,'/master/action','','Module for Action Control Management','1',1,1,'2016-07-13 20:40:30','2016-10-11 19:23:20'),(12,'/master/group','','Module for Group Management','1',1,NULL,'2016-07-13 20:49:51','2016-07-13 20:49:51'),(13,'/master/holiday','','Module for Holiday Management','1',1,NULL,'2016-07-13 20:50:21','2016-07-13 20:50:21'),(19,'/master/menu','','Module for Menu Management','1',1,NULL,'2016-07-13 20:57:30','2016-07-13 20:57:30'),(20,'/master/module','','Module for Module Management','1',1,NULL,'2016-07-13 20:58:39','2016-07-13 20:58:39'),(23,'/master/religion','','Module for Religion Management','1',1,NULL,'2016-07-13 21:00:40','2016-07-13 21:00:40'),(24,'/master/role','','Module for Role Management','1',1,NULL,'2016-07-13 21:01:10','2016-07-13 21:01:10'),(27,'/master/flowgroup','','Module for Flow Group Management','1',1,NULL,'2016-07-20 21:38:03','2016-07-20 21:38:03'),(30,'/master/flow','','Flow Management','1',1,NULL,'2016-08-22 01:16:35','2016-08-22 01:16:35'),(31,'/master/notificationtype','','Module for Master Notification Type','1',1,NULL,'2016-08-31 20:40:21','2016-08-31 20:40:21'),(35,'/config/#','','Module for configuration','1',1,1,'2016-10-04 21:46:46','2016-10-04 21:48:07'),(36,'/config/setting','','Module for application settings','1',1,NULL,'2016-10-04 21:49:26','2016-10-04 21:49:26'),(37,'/config/announcement','','Module for Announcement Management','1',1,NULL,'2016-10-05 22:05:23','2016-10-05 22:05:23');
+INSERT INTO `modules` VALUES (1,'/home','','Home for dashboard','1',1,NULL,'2016-07-13 20:37:38','2016-07-13 20:37:38'),(2,'/user','','Module for user management','1',1,NULL,'2016-07-13 20:38:20','2016-07-13 20:38:20'),(3,'/master/#','','Module for master data parent','1',1,NULL,'2016-07-13 20:39:14','2016-07-13 20:39:14'),(4,'/master/action','','Module for Action Control Management','1',1,1,'2016-07-13 20:40:30','2016-10-11 19:23:20'),(12,'/master/group','','Module for Group Management','1',1,NULL,'2016-07-13 20:49:51','2016-07-13 20:49:51'),(13,'/master/holiday','','Module for Holiday Management','1',1,NULL,'2016-07-13 20:50:21','2016-07-13 20:50:21'),(19,'/master/menu','','Module for Menu Management','1',1,NULL,'2016-07-13 20:57:30','2016-07-13 20:57:30'),(20,'/master/module','','Module for Module Management','1',1,NULL,'2016-07-13 20:58:39','2016-07-13 20:58:39'),(23,'/master/religion','','Module for Religion Management','1',1,NULL,'2016-07-13 21:00:40','2016-07-13 21:00:40'),(24,'/master/role','','Module for Role Management','1',1,NULL,'2016-07-13 21:01:10','2016-07-13 21:01:10'),(27,'/master/flowgroup','','Module for Flow Group Management','1',1,NULL,'2016-07-20 21:38:03','2016-07-20 21:38:03'),(30,'/master/flow','','Flow Management','1',1,NULL,'2016-08-22 01:16:35','2016-08-22 01:16:35'),(31,'/master/notificationtype','','Module for Master Notification Type','1',1,NULL,'2016-08-31 20:40:21','2016-08-31 20:40:21'),(35,'/config/#','','Module for configuration','1',1,1,'2016-10-04 21:46:46','2016-10-04 21:48:07'),(36,'/config/setting','','Module for application settings','1',1,NULL,'2016-10-04 21:49:26','2016-10-04 21:49:26'),(37,'/config/announcement','','Module for Announcement Management','1',1,NULL,'2016-10-05 22:05:23','2016-10-05 22:05:23'),(38,'/master/division','','Module for Division Management','1',1,NULL,'2016-11-23 01:01:22','2016-11-23 01:01:22'),(39,'/master/position','','Module for Position Management','1',1,NULL,'2016-11-23 01:16:10','2016-11-23 01:16:10'),(40,'/master/department','','Module for Departments Management','1',1,NULL,'2016-11-23 01:40:30','2016-11-23 01:40:30');
 /*!40000 ALTER TABLE `modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,6 +697,36 @@ LOCK TABLES `password_resets` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `positions`
+--
+
+DROP TABLE IF EXISTS `positions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `positions` (
+  `position_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `position_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `position_desc` text COLLATE utf8_unicode_ci NOT NULL,
+  `active` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`position_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `positions`
+--
+
+LOCK TABLES `positions` WRITE;
+/*!40000 ALTER TABLE `positions` DISABLE KEYS */;
+INSERT INTO `positions` VALUES (1,'Position 1','Position 1','1',1,1,'2016-11-23 01:20:30','2016-11-23 01:20:52');
+/*!40000 ALTER TABLE `positions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `religions`
 --
 
@@ -582,7 +751,7 @@ CREATE TABLE `religions` (
 
 LOCK TABLES `religions` WRITE;
 /*!40000 ALTER TABLE `religions` DISABLE KEYS */;
-INSERT INTO `religions` VALUES (1,'Islam','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(2,'Kristen Katolik','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(3,'Kristen Protestan','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(4,'Hindu','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(5,'Budha','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(6,'Konghucu Edit','0',1,1,'2016-05-23 02:08:49','2016-05-23 02:10:41'),(7,'tujuh','1',1,0,'2016-05-25 01:58:21','2016-05-25 01:58:21');
+INSERT INTO `religions` VALUES (1,'Islam','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(2,'Kristen Katolik','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(3,'Kristen Protestan','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(4,'Hindu','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(5,'Budha','1',1,1,'2016-05-19 02:00:10','2016-05-19 02:00:10'),(6,'Konghucu Edit','0',1,1,'2016-05-23 02:08:49','2016-05-23 02:10:41'),(7,'Other','1',1,1,'2016-05-25 01:58:21','2016-11-23 01:55:04');
 /*!40000 ALTER TABLE `religions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -634,7 +803,7 @@ CREATE TABLE `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -643,7 +812,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,7,'Super Administrator','Role for Super Administrator','1',1,1,'2016-05-19 02:00:10','2016-09-02 00:29:53'),(2,6,'Administrator','Role for Adminstrator','1',1,1,'2016-05-20 00:31:22','2016-09-02 00:30:33'),(3,1,'Operator','Role for operator','1',1,1,'2016-05-20 00:33:20','2016-07-13 21:35:02');
+INSERT INTO `roles` VALUES (1,7,'Super Administrator','Role for Super Administrator','1',1,1,'2016-05-19 02:00:10','2016-09-02 00:29:53'),(2,6,'Administrator','Role for Adminstrator','1',1,1,'2016-05-20 00:31:22','2016-09-02 00:30:33'),(3,1,'Operator','Role for operator','1',1,1,'2016-05-20 00:33:20','2016-07-13 21:35:02'),(4,1,'Secretary','Role For Secretaries','1',1,NULL,'2016-11-23 01:51:59','2016-11-23 01:51:59'),(5,2,'HR Officer','Role for HR Officer','1',1,NULL,'2016-11-23 01:53:08','2016-11-23 01:53:08');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -668,7 +837,7 @@ CREATE TABLE `roles_modules` (
 
 LOCK TABLES `roles_modules` WRITE;
 /*!40000 ALTER TABLE `roles_modules` DISABLE KEYS */;
-INSERT INTO `roles_modules` VALUES (15,1,2,1),(13,1,2,1),(16,1,2,1),(29,1,2,1),(30,1,2,1),(6,1,2,1),(14,1,2,1),(19,1,2,1),(4,1,2,1),(21,1,2,1),(22,1,2,1),(23,1,2,1),(24,1,2,1),(25,1,2,1),(10,1,2,1),(18,1,2,1),(12,1,2,1),(7,1,2,1),(31,1,2,1),(1,1,2,1),(1,2,1,1),(1,2,2,1),(1,2,3,1),(1,2,4,1),(1,3,2,1),(1,4,1,1),(1,4,2,1),(1,4,3,1),(1,4,4,1),(1,30,1,1),(1,30,2,1),(1,30,3,1),(1,30,4,1),(1,27,1,1),(1,27,2,1),(1,27,3,1),(1,27,4,1),(1,12,1,1),(1,12,2,1),(1,12,3,1),(1,12,4,1),(1,13,1,1),(1,13,2,1),(1,13,3,1),(1,13,4,1),(1,19,1,1),(1,19,2,1),(1,19,3,1),(1,19,4,1),(1,20,1,1),(1,20,2,1),(1,20,3,1),(1,20,4,1),(1,31,1,1),(1,31,2,1),(1,31,3,1),(1,31,4,1),(1,23,1,1),(1,23,2,1),(1,23,3,1),(1,23,4,1),(1,24,1,1),(1,24,2,1),(1,24,3,1),(1,24,4,1),(1,35,2,1),(1,36,1,1),(1,36,2,1),(1,36,3,1),(1,36,4,1),(1,37,1,1),(1,37,2,1),(1,37,3,1),(1,37,4,1),(2,1,2,1),(2,2,1,1),(2,2,2,1),(2,2,3,1),(2,3,2,1),(2,4,1,1),(2,4,2,1),(2,4,3,1),(2,12,1,1),(2,12,2,1),(2,12,3,1),(2,12,4,1),(2,13,1,1),(2,13,2,1),(2,13,3,1),(2,13,4,1),(2,19,1,1),(2,19,2,1),(2,19,3,1),(2,20,1,1),(2,20,2,1),(2,20,3,1),(2,31,1,1),(2,31,2,1),(2,31,3,1),(2,31,4,1),(2,23,1,1),(2,23,2,1),(2,23,3,1),(2,23,4,1),(2,24,1,1),(2,24,2,1),(2,24,3,1),(2,35,2,1),(2,36,2,1),(2,36,3,1),(2,37,1,1),(2,37,2,1),(2,37,3,1),(2,37,4,1),(3,1,2,1),(3,3,2,1),(3,4,2,1),(3,4,3,1),(3,12,1,1),(3,12,2,1),(3,12,3,1),(3,12,4,1),(3,13,1,1),(3,13,2,1),(3,13,3,1),(3,13,4,1),(3,35,2,1),(3,37,1,1),(3,37,2,1),(3,37,3,1);
+INSERT INTO `roles_modules` VALUES (15,1,2,1),(13,1,2,1),(16,1,2,1),(29,1,2,1),(30,1,2,1),(6,1,2,1),(14,1,2,1),(19,1,2,1),(4,1,2,1),(21,1,2,1),(22,1,2,1),(23,1,2,1),(24,1,2,1),(25,1,2,1),(10,1,2,1),(18,1,2,1),(12,1,2,1),(7,1,2,1),(31,1,2,1),(2,1,2,1),(2,2,1,1),(2,2,2,1),(2,2,3,1),(2,3,2,1),(2,4,1,1),(2,4,2,1),(2,4,3,1),(2,12,1,1),(2,12,2,1),(2,12,3,1),(2,12,4,1),(2,13,1,1),(2,13,2,1),(2,13,3,1),(2,13,4,1),(2,19,1,1),(2,19,2,1),(2,19,3,1),(2,20,1,1),(2,20,2,1),(2,20,3,1),(2,31,1,1),(2,31,2,1),(2,31,3,1),(2,31,4,1),(2,23,1,1),(2,23,2,1),(2,23,3,1),(2,23,4,1),(2,24,1,1),(2,24,2,1),(2,24,3,1),(2,35,2,1),(2,36,2,1),(2,36,3,1),(2,37,1,1),(2,37,2,1),(2,37,3,1),(2,37,4,1),(3,1,2,1),(3,3,2,1),(3,4,2,1),(3,4,3,1),(3,12,1,1),(3,12,2,1),(3,12,3,1),(3,12,4,1),(3,13,1,1),(3,13,2,1),(3,13,3,1),(3,13,4,1),(3,35,2,1),(3,37,1,1),(3,37,2,1),(3,37,3,1),(1,1,2,1),(1,2,1,1),(1,2,2,1),(1,2,3,1),(1,2,4,1),(1,3,2,1),(1,4,1,1),(1,4,2,1),(1,4,3,1),(1,4,4,1),(1,40,1,1),(1,40,2,1),(1,40,3,1),(1,40,4,1),(1,38,1,1),(1,38,2,1),(1,38,3,1),(1,38,4,1),(1,30,1,1),(1,30,2,1),(1,30,3,1),(1,30,4,1),(1,27,1,1),(1,27,2,1),(1,27,3,1),(1,27,4,1),(1,12,1,1),(1,12,2,1),(1,12,3,1),(1,12,4,1),(1,13,1,1),(1,13,2,1),(1,13,3,1),(1,13,4,1),(1,19,1,1),(1,19,2,1),(1,19,3,1),(1,19,4,1),(1,39,1,1),(1,39,2,1),(1,39,3,1),(1,39,4,1),(1,20,1,1),(1,20,2,1),(1,20,3,1),(1,20,4,1),(1,31,1,1),(1,31,2,1),(1,31,3,1),(1,31,4,1),(1,23,1,1),(1,23,2,1),(1,23,3,1),(1,23,4,1),(1,24,1,1),(1,24,2,1),(1,24,3,1),(1,24,4,1),(1,35,2,1),(1,37,1,1),(1,37,2,1),(1,37,3,1),(1,37,4,1),(1,36,1,1),(1,36,2,1),(1,36,3,1),(1,36,4,1),(4,1,2,1),(5,1,2,1),(5,3,2,1),(5,40,1,1),(5,40,2,1),(5,40,3,1),(5,40,4,1),(5,38,1,1),(5,38,2,1),(5,38,3,1),(5,38,4,1),(5,39,1,1),(5,39,2,1),(5,39,3,1),(5,39,4,1),(5,35,2,1),(5,37,1,1),(5,37,2,1),(5,37,3,1),(5,37,4,1);
 /*!40000 ALTER TABLE `roles_modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -700,7 +869,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'app_name','Application Name','Application\'s Name','Master<b>APP</b>','1',1,1,'2016-10-04 22:19:22','2016-10-11 20:19:30');
+INSERT INTO `settings` VALUES (1,'app_name','Application Name','Application\'s Name','<b>GOM</b>Freelancer','1',1,1,'2016-10-04 22:19:22','2016-11-22 23:30:45');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -769,7 +938,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_user_name_unique` (`user_name`),
   UNIQUE KEY `users_user_email_unique` (`user_email`),
   KEY `users_user_firstname_user_phone_user_birthdate_index` (`user_firstname`,`user_phone`,`user_birthdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -778,7 +947,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'025407','soni@gramedia-majalah.com','$2y$10$1LdG9jpzi6kJJZFcUblN8umDjFQZfsDSC.vycnwh6bbta/hTnj0VS','Soni','Rahayu','081111111111','1',1,'1990-01-01',NULL,NULL,'avatar.jpg','ACTIVE','1',1,1,'zhk6GMHLbhmvI0WPkdUxfdJPHu6bpemj5l5HxSpsC2gLMBcsuFOYDd1nAlHO','2016-05-19 02:00:10','2016-10-11 20:21:09'),(15,'000000','admin@admin.com','$2y$10$bDcWDAcug4u0OGrenwehCuqdDZBkCvZ63dmSgpun552lhTVfp6liS','Operator','Application','085522002200','2',1,'2000-01-01',NULL,NULL,'avatar-female.jpg','ACTIVE','1',1,NULL,'v22P10fFmBOB3QHf0eoOziOzlMwNwwx3gewNYQ4ZzcDUpYf5CPDYRdvnxmEg','2016-10-11 20:18:59','2016-10-11 20:21:31');
+INSERT INTO `users` VALUES (1,'025407','soni@gramedia-majalah.com','$2y$10$1LdG9jpzi6kJJZFcUblN8umDjFQZfsDSC.vycnwh6bbta/hTnj0VS','Soni','Rahayu','081220493870','1',1,'1990-09-06',NULL,NULL,'201610190935312016-W-Motors-Fenyr-SuperSport-Concept.jpg','ACTIVE','1',1,1,'Cbtx1qmZhjJpyqhf9VG083eH1GgQyF6z8x23koguL2Lzaxyed13Bw0VQEJgL','2016-05-19 02:00:10','2016-11-23 01:55:10'),(15,'000000','admin@admin.com','$2y$10$bDcWDAcug4u0OGrenwehCuqdDZBkCvZ63dmSgpun552lhTVfp6liS','Operator','Application','085522002200','2',1,'2000-01-01',NULL,NULL,'avatar-female.jpg','ACTIVE','1',1,NULL,'v22P10fFmBOB3QHf0eoOziOzlMwNwwx3gewNYQ4ZzcDUpYf5CPDYRdvnxmEg','2016-10-11 20:18:59','2016-10-11 20:21:31'),(16,'hrofficer','hr.officer@gramedia-majalah.com','$2y$10$cvO98D/ExynlObPWH0SqF.VqwunSGIMQfUqLefuONkOcBpGabXLy.','HR','Officer','081122154451','1',7,'1990-01-01',NULL,NULL,'avatar.jpg','ACTIVE','1',1,NULL,NULL,'2016-11-23 01:54:40','2016-11-23 01:54:40');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -801,7 +970,7 @@ CREATE TABLE `users_groups` (
 
 LOCK TABLES `users_groups` WRITE;
 /*!40000 ALTER TABLE `users_groups` DISABLE KEYS */;
-INSERT INTO `users_groups` VALUES (11,3),(13,6),(9,6),(2,3),(2,4),(2,5),(2,6),(2,1),(2,2),(4,6),(1,3),(1,4),(1,5),(1,6),(1,1),(1,2),(10,1),(15,1);
+INSERT INTO `users_groups` VALUES (11,3),(13,6),(9,6),(2,3),(2,4),(2,5),(2,6),(2,1),(2,2),(4,6),(1,3),(1,4),(1,5),(1,6),(1,1),(1,2),(10,1),(15,1),(16,1),(16,2),(16,3),(16,4),(16,5),(16,6);
 /*!40000 ALTER TABLE `users_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -828,16 +997,16 @@ CREATE TABLE `users_roles` (
 
 LOCK TABLES `users_roles` WRITE;
 /*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
-INSERT INTO `users_roles` VALUES (8,1,0,NULL,NULL,NULL),(8,4,0,NULL,NULL,NULL),(8,7,0,NULL,NULL,NULL),(10,7,0,NULL,NULL,NULL),(11,2,0,NULL,NULL,NULL),(12,1,0,NULL,NULL,NULL),(5,1,0,NULL,NULL,NULL),(14,3,0,NULL,NULL,NULL),(13,12,0,NULL,NULL,NULL),(9,18,0,NULL,NULL,NULL),(2,1,0,NULL,NULL,NULL),(4,12,0,NULL,NULL,NULL),(1,1,1,NULL,NULL,NULL),(15,3,0,NULL,NULL,NULL);
+INSERT INTO `users_roles` VALUES (8,1,0,NULL,NULL,NULL),(8,4,0,NULL,NULL,NULL),(8,7,0,NULL,NULL,NULL),(10,7,0,NULL,NULL,NULL),(11,2,0,NULL,NULL,NULL),(12,1,0,NULL,NULL,NULL),(5,1,0,NULL,NULL,NULL),(14,3,0,NULL,NULL,NULL),(13,12,0,NULL,NULL,NULL),(9,18,0,NULL,NULL,NULL),(2,1,0,NULL,NULL,NULL),(4,12,0,NULL,NULL,NULL),(1,1,1,NULL,NULL,NULL),(15,3,0,NULL,NULL,NULL),(16,5,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'masterapp'
+-- Dumping events for database 'hrfreelancer'
 --
 
 --
--- Dumping routines for database 'masterapp'
+-- Dumping routines for database 'hrfreelancer'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -849,4 +1018,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-12 10:22:02
+-- Dump completed on 2016-11-23 15:57:51
