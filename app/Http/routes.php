@@ -122,6 +122,11 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::resource('role', 'RoleController');
     });
 
+    //Freelancer
+    Route::post('freelancer/apiList', 'FreelancerController@apiList');
+    Route::post('freelancer/apiDelete', 'FreelancerController@apiDelete');
+    Route::resource('freelancer', 'FreelancerController');
+
     Route::group(['prefix' => 'config'], function() {
         //Announcement Management
         Route::post('announcement/apiList', 'AnnouncementController@apiList');
