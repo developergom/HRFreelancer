@@ -1,5 +1,9 @@
 @extends('vendor.material.layouts.app')
 
+@section('vendorcss')
+<link href="{{ url('css/bootstrap-select.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-header"><h2>Freelancer Management<small>Create New Freelancer</small></h2></div>
@@ -111,6 +115,197 @@
 	                </div>
 	            </div>
 	            <div class="form-group">
+	                <label for="last_education" class="col-sm-2 control-label">Last Education</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <select name="last_education" id="last_education" class="selectpicker" data-live-search="true" required="true">
+	                        	<option value=""></option>
+                                @foreach ($last_educations as $key => $value)
+                                	{!! $selected = '' !!}
+                                	@if($value==old('last_education'))
+                                		{!! $selected = 'selected' !!}
+                                	@endif
+								    <option value="{{ $value }}" {{ $selected }}>{{ $value }}</option>
+								@endforeach
+                            </select>
+	                    </div>
+	                    @if ($errors->has('last_education'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('last_education') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="ktp_number" class="col-sm-2 control-label">KTP Number</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm input-mask" name="ktp_number" id="ktp_number" placeholder="KTP Number" required="true" maxlength="25" value="{{ old('ktp_number') }}" autocomplete="off" data-mask="0000000000000000">
+	                    </div>
+	                    @if ($errors->has('ktp_number'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('ktp_number') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="npwp" class="col-sm-2 control-label">NPWP</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm input-mask" name="npwp" id="npwp" placeholder="NPWP" required="true" maxlength="25" value="{{ old('npwp') }}" autocomplete="off" data-mask="00.000.000.0-000.000">
+	                    </div>
+	                    @if ($errors->has('npwp'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('npwp') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="ktp_address" class="col-sm-2 control-label">KTP Address</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <textarea name="ktp_address" id="ktp_address" class="form-control input-sm" placeholder="KTP Address" required="true">{{ old('ktp_address') }}</textarea>
+	                    </div>
+	                    @if ($errors->has('ktp_address'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('ktp_address') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="ktp_city" class="col-sm-2 control-label">KTP City</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm" name="ktp_city" id="ktp_city" placeholder="KTP City" required="true" maxlength="50" value="{{ old('ktp_city') }}">
+	                    </div>
+	                    @if ($errors->has('ktp_city'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('ktp_city') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="home_address" class="col-sm-2 control-label">Home Address</label>
+	                <div class="col-sm-8">
+	                    <div class="fg-line">
+	                        <textarea name="home_address" id="home_address" class="form-control input-sm" placeholder="Home Address" required="true">{{ old('home_address') }}</textarea>
+	                    </div>
+	                    @if ($errors->has('home_address'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('home_address') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	                <div class="col-sm-2">
+	                	<a href="javascript:void(0)" id="btn-copy-address" class="btn btn-info btn-sm">Copy Address</a>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="home_city" class="col-sm-2 control-label">Home City</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm" name="home_city" id="home_city" placeholder="Home City" required="true" maxlength="50" value="{{ old('home_city') }}">
+	                    </div>
+	                    @if ($errors->has('home_city'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('home_city') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="bank" class="col-sm-2 control-label">Bank</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm" name="bank" id="bank" placeholder="Bank" required="true" maxlength="100" value="{{ old('bank') }}">
+	                    </div>
+	                    @if ($errors->has('bank'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('bank') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="bank_branch" class="col-sm-2 control-label">Bank Branch</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm" name="bank_branch" id="bank_branch" placeholder="Bank Branch" maxlength="100" value="{{ old('bank_branch') }}">
+	                    </div>
+	                    @if ($errors->has('bank_branch'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('bank_branch') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="bank_account_name" class="col-sm-2 control-label">Bank Account Name</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm" name="bank_account_name" id="bank_account_name" placeholder="Bank Account Name" required="true" maxlength="100" value="{{ old('bank_account_name') }}">
+	                    </div>
+	                    @if ($errors->has('bank_account_name'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('bank_account_name') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="bank_account_number" class="col-sm-2 control-label">Bank Account Number</label>
+	                <div class="col-sm-10">
+	                    <div class="fg-line">
+	                        <input type="text" class="form-control input-sm" name="bank_account_number" id="bank_account_number" placeholder="Bank Account Number" required="true" maxlength="100" value="{{ old('bank_account_number') }}">
+	                    </div>
+	                    @if ($errors->has('bank_account_number'))
+			                <span class="help-block">
+			                    <strong>{{ $errors->first('bank_account_number') }}</strong>
+			                </span>
+			            @endif
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <div class="col-sm-12">
+	                    <a href="javascript:void(0)" id="btn-modal-add-history" class="btn btn-info btn-sm">Add History</a>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	            	<div class="col-sm-12">
+	            		<div role="tabpanel">
+				            <ul class="tab-nav" role="tablist">
+				                <li class="active"><a href="#listhistory" aria-controls="listhistory" role="tab" data-toggle="tab">History</a></li>
+				            </ul>
+				            <div class="tab-content">
+				                <div role="tabpanel" class="tab-pane active" id="listprint">
+				                   <div class="table-responsive">
+				                        <table id="grid-data-listhistory" class="table table-hover">
+				                            <thead>
+				                                <tr>
+				                                    <th data-column-id="division_name" data-order="asc">Division</th>
+				                                    <th data-column-id="department_name" data-order="asc">Department</th>
+				                                    <th data-column-id="position_name" data-order="asc">Position</th>
+				                                    <th data-column-id="start_date" data-order="asc">Start Date</th>
+				                                    <th data-column-id="end_date" data-order="asc">End Date</th>
+				                                    <th data-column-id="honor_type" data-order="asc">Honor Type</th>
+				                                    <th data-column-id="honor" data-order="asc">Honor</th>
+				                                    <th data-column-id="link" data-formatter="link-rua" data-sortable="false">Action</th>
+				                                </tr>
+				                            </thead>
+				                            <tbody>
+				                            </tbody>
+				                        </table>
+				                    </div>                 
+				                </div>
+				            </div>
+				        </div>
+	            	</div>
+	            </div>
+	            <div class="form-group">
 	                <div class="col-sm-offset-2 col-sm-10">
 	                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 	                    <a href="{{ url('freelancer') }}" class="btn btn-danger btn-sm">Back</a>
@@ -119,8 +314,15 @@
 	        </form>
         </div>
     </div>
+
+    @include('vendor.material.freelancer.modal')
 @endsection
 
 @section('vendorjs')
+<script src="{{ url('js/bootstrap-select.min.js') }}"></script>
 <script src="{{ url('js/input-mask.min.js') }}"></script>
+@endsection
+
+@section('customjs')
+<script src="{{ url('js/app/freelancer-create.js') }}"></script>
 @endsection

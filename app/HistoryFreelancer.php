@@ -19,6 +19,10 @@ class HistoryFreelancer extends Model
 				'end_date'
 	];
 
+	public $honor_types = [
+				'daily', 'monthly', 'by project', 'by creation'
+	];
+
 	protected $hidden = [
 				'active', 'created_by', 'created_at', 'updated_by', 'updated_at'
 	];

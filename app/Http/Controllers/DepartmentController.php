@@ -209,4 +209,20 @@ class DepartmentController extends Controller
             return response()->json(200); //failed
         }
     }
+
+    public function apiGetByDivision(Request $request)
+    {
+        if(Gate::denies('Home-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $id = $request->input('division_id');
+
+        $departments = Department::where('division_id', $id)->where('active', '1')->orderBy('department_name')->get();
+
+        $data = array();
+        $data['departments'] = $departments;
+
+        return response()->json($data);
+    }
 }

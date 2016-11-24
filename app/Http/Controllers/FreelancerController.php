@@ -49,9 +49,110 @@ class FreelancerController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        $f = new Freelancer;
+        $hf = new HistoryFreelancer;
+
         $data = array();
+        $data['last_educations'] = $f->last_educations;
+        $data['divisions'] = Division::where('active', '1')->orderBy('division_name')->get();
+        $data['positions'] = Position::where('active', '1')->orderBy('position_name')->get();
+        $data['honor_types'] = $hf->honor_types;
 
         return view('vendor.material.freelancer.create', $data);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'email' => 'required|max:100',
+            'phone' => 'required|max:14',
+            'phone_other' => 'max:14',
+            'place_of_birth' => 'required|max:100',
+            'date_of_birth' => 'required|date_format:"d/m/Y"',
+            'gender' => 'required',
+            'last_education' => 'required',
+            'ktp_number' => 'required',
+            'npwp' => 'required',
+            'ktp_address' => 'required',
+            'ktp_city' => 'required',
+            'home_address' => 'required',
+            'home_city' => 'required',
+            'bank' => 'required',
+            'bank_account_name' => 'required',
+            'bank_account_number' => 'required',
+        ]);
+
+        $obj = new Freelancer;
+
+        $obj->name = $request->input('name');
+        $obj->email = $request->input('email');
+        $obj->phone = $request->input('phone');
+        $obj->phone_other = $request->input('phone_other');
+        $obj->place_of_birth = $request->input('place_of_birth');
+        $obj->date_of_birth = Carbon::createFromFormat('d/m/Y', $request->input('date_of_birth'))->toDateString();
+        $obj->gender = $request->input('gender');
+        $obj->last_education = $request->input('last_education');
+        $obj->ktp_number = $request->input('ktp_number');
+        $obj->npwp = $request->input('npwp');
+        $obj->ktp_address = $request->input('ktp_address');
+        $obj->ktp_city = $request->input('ktp_city');
+        $obj->home_address = $request->input('home_address');
+        $obj->home_city = $request->input('home_city');
+        $obj->bank = $request->input('bank');
+        $obj->bank_branch = $request->input('bank_branch');
+        $obj->bank_account_name = $request->input('bank_account_name');
+        $obj->bank_account_number = $request->input('bank_account_number');
+        $obj->active = '1';
+        $obj->created_by = $request->user()->user_id;
+
+        $obj->save();
+
+        //store history
+        if($request->session()->has('histories_' . $request->user()->user_id)) {
+    		$histories = $request->session()->get('histories_' . $request->user()->user_id);
+    		foreach($histories as $history) {
+    			$his = new HistoryFreelancer;
+    			$his->freelancer_id = $obj->freelancer_id;
+    			$his->department_id = $history['department_id'];
+    			$his->position_id = $history['position_id'];
+    			$his->start_date = Carbon::createFromFormat('d/m/Y', $history['start_date'])->toDateString();
+    			$his->end_date = Carbon::createFromFormat('d/m/Y', $history['end_date'])->toDateString();
+    			$his->honor_type = $history['honor_type'];
+    			$his->honor = $history['honor'];
+    			$his->active = '1';
+    			$his->created_by = $request->user()->user_id;
+
+    			$his->save();
+    		}
+
+    		$request->session()->forget('histories_' . $request->user()->user_id);
+    	}
+
+        $request->session()->flash('status', 'Data has been saved!');
+
+        return redirect('freelancer');
+    }
+
+    public function apiDelete(Request $request)
+    {
+        if(Gate::denies('Freelancers Management-Delete')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $id = $request->input('freelancer_id');
+
+        $obj = Freelancer::find($id);
+
+        $obj->active = '0';
+        $obj->updated_by = $request->user()->user_id;
+
+        if($obj->save())
+        {
+            return response()->json(100); //success
+        }else{
+            return response()->json(200); //failed
+        }
     }
 
     public function apiList(Request $request)
@@ -109,5 +210,88 @@ class FreelancerController extends Controller
                             })->count();
 
         return response()->json($data);
+    }
+
+    public function apiLoadHistory(Request $request) {
+    	if(Gate::denies('Freelancers Management-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+    	$data = array();
+
+    	$data['histories'] = $request->session()->get('histories_' . $request->user()->user_id);
+
+    	return response()->json($data);
+    }
+
+    public function apiStoreHistory(Request $request) {
+    	if(Gate::denies('Freelancers Management-Create')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+    	$data = array();
+
+    	$division_id = $request->input('division_id');
+    	$division_name = $request->input('division_name');
+    	$department_id = $request->input('department_id');
+    	$department_name = $request->input('department_name');
+    	$position_id = $request->input('position_id');
+    	$position_name = $request->input('position_name');
+    	$start_date = $request->input('start_date');
+    	$end_date = $request->input('end_date');
+    	$honor_type = $request->input('honor_type');
+    	$honor = $request->input('honor');
+
+    	$history = array();
+    	$history['division_id'] = $division_id;
+    	$history['division_name'] = $division_name;
+    	$history['department_id'] = $department_id;
+    	$history['department_name'] = $department_name;
+    	$history['position_id'] = $position_id;
+    	$history['position_name'] = $position_name;
+    	$history['start_date'] = $start_date;
+    	$history['end_date'] = $end_date;
+    	$history['honor_type'] = $honor_type;
+    	$history['honor'] = $honor;
+
+    	$histories = array();
+    	if($request->session()->has('histories_' . $request->user()->user_id)) {
+    		$histories = $request->session()->get('histories_' . $request->user()->user_id);
+    		$request->session()->forget('histories_' . $request->user()->user_id);
+    	}
+
+    	$histories[] = $history;
+
+    	$request->session()->put('histories_' . $request->user()->user_id, $histories);
+    	
+    	$data['status'] = '200';
+
+    	return response()->json($data);
+    }
+
+    public function apiDeleteHistory(Request $request) {
+    	$data = array();
+
+    	$key = $request->input('key');
+
+    	$histories = array();
+    	if($request->session()->has('histories_' . $request->user()->user_id)) {
+    		$histories = $request->session()->get('histories_' . $request->user()->user_id);
+    		$request->session()->forget('histories_' . $request->user()->user_id);
+
+    		unset($histories[$key]);
+
+    		$request->session()->put('histories_' . $request->user()->user_id, $histories);
+    	
+	    	$data['status'] = '200';
+
+	    	return response()->json($data);	
+    	}else{
+    		$data['status'] = '500';
+
+	    	return response()->json($data);
+    	}
+
+
     }
 }

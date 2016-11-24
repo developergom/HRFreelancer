@@ -26,6 +26,7 @@ class CreateTableFreelancers extends Migration
                 $table->string('npwp', 40);
                 $table->string('bank');
                 $table->string('bank_branch')->nullable();
+                $table->string('bank_account_name');
                 $table->string('bank_account_number');
                 $table->string('ktp_number');
                 $table->string('ktp_city');

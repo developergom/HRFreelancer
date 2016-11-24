@@ -21,6 +21,7 @@ class Freelancer extends Model
 				'npwp',
 				'bank',
 				'bank_branch',
+				'bank_account_name',
 				'bank_account_number',
 				'ktp_number',
 				'ktp_city',
@@ -34,6 +35,17 @@ class Freelancer extends Model
 	protected $hidden = [
 				'active', 'created_by', 'created_at', 'updated_by', 'updated_at'
 	];
+
+	public $last_educations = [
+							'SMA/SMK',
+							'D1',
+							'D2',
+							'D3',
+							'D4',
+							'S1',
+							'S2',
+							'S3'
+						];
 
 	public function historiesfreelancer() {
 		return $this->hasMany('App\HistoryFreelancer', 'freelancer_id');

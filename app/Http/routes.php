@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
         Route::post('department/apiList', 'DepartmentController@apiList');
         Route::post('department/apiDelete', 'DepartmentController@apiDelete');
         Route::resource('department', 'DepartmentController');
+        Route::post('department/apiGetByDivision', 'DepartmentController@apiGetByDivision');
 
         //Division
         Route::post('division/apiList', 'DivisionController@apiList');
@@ -126,6 +127,9 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
     Route::post('freelancer/apiList', 'FreelancerController@apiList');
     Route::post('freelancer/apiDelete', 'FreelancerController@apiDelete');
     Route::resource('freelancer', 'FreelancerController');
+    Route::post('freelancer/api/storeHistory', 'FreelancerController@apiStoreHistory');
+    Route::post('freelancer/api/deleteHistory', 'FreelancerController@apiDeleteHistory');
+    Route::get('freelancer/api/loadHistory', 'FreelancerController@apiLoadHistory');
 
     Route::group(['prefix' => 'config'], function() {
         //Announcement Management
