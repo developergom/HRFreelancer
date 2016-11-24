@@ -20,8 +20,8 @@ class CreateTableHistoryFreelancers extends Migration
                 $table->integer('position_id');
                 $table->double('honor');
                 $table->enum('honor_type', ['daily', 'monthly', 'by project', 'by creation']);
-                $table->datetime('start_date');
-                $table->datetime('end_date');
+                $table->date('start_date');
+                $table->date('end_date');
                 $table->enum('active',['0','1'])->default('1');
                 $table->integer('created_by');
                 $table->integer('updated_by')->nullable();

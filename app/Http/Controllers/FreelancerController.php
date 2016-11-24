@@ -67,7 +67,7 @@ class FreelancerController extends Controller
             'name' => 'required|max:100',
             'email' => 'required|max:100',
             'phone' => 'required|max:14',
-            'phone_other' => 'max:14',
+            'other_phone' => 'max:14',
             'place_of_birth' => 'required|max:100',
             'date_of_birth' => 'required|date_format:"d/m/Y"',
             'gender' => 'required',
@@ -88,7 +88,7 @@ class FreelancerController extends Controller
         $obj->name = $request->input('name');
         $obj->email = $request->input('email');
         $obj->phone = $request->input('phone');
-        $obj->phone_other = $request->input('phone_other');
+        $obj->phone_other = $request->input('other_phone');
         $obj->place_of_birth = $request->input('place_of_birth');
         $obj->date_of_birth = Carbon::createFromFormat('d/m/Y', $request->input('date_of_birth'))->toDateString();
         $obj->gender = $request->input('gender');
@@ -132,6 +132,41 @@ class FreelancerController extends Controller
         $request->session()->flash('status', 'Data has been saved!');
 
         return redirect('freelancer');
+    }
+
+    public function show(Request $request, $id)
+    {
+        if(Gate::denies('Freelancers Management-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $u = new UserLibrary;
+        $subordinate = $u->getSubOrdinateArrayID($request->user()->user_id);
+
+        //dd($subordinate);
+
+        $data = array();
+        $data['freelancer'] = Freelancer::with(
+        									'historiesfreelancer', 
+        									'historiesfreelancer.department', 
+        									'historiesfreelancer.department.division', 
+        									'historiesfreelancer.position'
+        								)->where('active','1')->find($id);
+
+        if(count($subordinate) > 0) {
+        	if(in_array($data['freelancer']->created_by, $subordinate) || $data['freelancer']->created_by==$request->user()->user_id) {
+	        	return view('vendor.material.freelancer.show', $data);
+	        }else{
+	        	abort(403, 'Unauthorized action.');	
+	        }
+        }else{
+        	if($data['freelancer']->created_by==$request->user()->user_id) {
+        		return view('vendor.material.freelancer.show', $data);
+        	}else{
+        		abort(403, 'Unauthorized action.');			
+        	}
+        }
+
     }
 
     public function apiDelete(Request $request)

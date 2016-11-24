@@ -28,14 +28,14 @@ class HistoryFreelancer extends Model
 	];
 
 	public function freelancer() {
-		$this->belongsTo('App\Freelancer', 'freelancer_id');
+		return $this->belongsTo('App\Freelancer', 'freelancer_id');
 	}
 
 	public function department() {
-		$this->belongsTo('App\Department', 'department_id');
+		return $this->belongsTo('App\Department', 'department_id');
 	}
 
 	public function position() {
-		$this->belongsTo('App\Position', 'position_id');
+		return $this->belongsTo('App\Position', 'position_id');
 	}
 }
