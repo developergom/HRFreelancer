@@ -217,10 +217,10 @@ class FreelancerController extends Controller
         $data['searchPhrase'] = $searchPhrase;
         $data['rows'] = Freelancer::where('freelancers.active','1')
         					->join('users','users.user_id', '=', 'freelancers.created_by')
-        					->where(function($query) use($request, $subordinate){
+        					/*->where(function($query) use($request, $subordinate){
                                 $query->where('freelancers.created_by', '=' , $request->user()->user_id)
                                         ->orWhereIn('freelancers.created_by', $subordinate);
-                            })
+                            })*/
                             ->where(function($query) use($searchPhrase) {
                                 $query->orWhere('name','like','%' . $searchPhrase . '%')
                                         ->orWhere('email','like','%' . $searchPhrase . '%')
@@ -232,10 +232,10 @@ class FreelancerController extends Controller
                             ->orderBy($sort_column, $sort_type)->get();
         $data['total'] = Freelancer::where('freelancers.active','1')
         					->join('users','users.user_id', '=', 'freelancers.created_by')
-                            ->where(function($query) use($request, $subordinate){
+                            /*->where(function($query) use($request, $subordinate){
                                 $query->where('freelancers.created_by', '=' , $request->user()->user_id)
                                         ->orWhereIn('freelancers.created_by', $subordinate);
-                            })
+                            })*/
                             ->where(function($query) use($searchPhrase) {
                                 $query->orWhere('name','like','%' . $searchPhrase . '%')
                                         ->orWhere('email','like','%' . $searchPhrase . '%')
