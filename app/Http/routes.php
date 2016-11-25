@@ -31,6 +31,7 @@ Route::post('/api/readNotification', 'NotificationController@readNotification');
 Route::auth();
 
 Route::get('/home', 'HomeController@index')->middleware(['auth','menu']);
+Route::get('/test', 'HomeController@test')->middleware(['auth','menu']);
 
 //User
 Route::group(['middleware' => ['auth', 'menu']], function(){
