@@ -163,7 +163,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $this->validate($request, [
             'user_name' => 'required|unique:users,user_name,'.$id.',user_id|max:100|min:6',
             'user_firstname' => 'required|max:100',
@@ -187,6 +186,10 @@ class UserController extends Controller
         $obj->user_email = $request->input('user_email');
         $obj->user_phone = $request->input('user_phone');
         $obj->updated_by = $request->user()->user_id;
+
+        if($request->input('reset_password')=='yes') {
+            $obj->password = bcrypt('password');
+        }
 
         $obj->save();
 
