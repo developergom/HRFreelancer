@@ -244,6 +244,7 @@ class FreelancerController extends Controller
                                         ->orWhere('user_firstname','like','%' . $searchPhrase . '%');
                             })->count();
 
+		$data['current_user'] = $request->user()->user_id;
         return response()->json($data);
     }
 

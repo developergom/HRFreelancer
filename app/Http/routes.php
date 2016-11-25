@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth', 'menu']], function(){
     Route::get('change-password', 'UserController@changePassword');
     Route::post('change-password', 'UserController@postChangePassword');
     Route::get('profile', 'UserController@viewProfile');
+    Route::get('api/getUid', 'UserController@getCurrentUser');
+    Route::get('api/getSubordinate', 'UserController@getSubordinate');
     Route::resource('user', 'UserController');
     Route::post('editProfile', 'UserController@postEditProfile');
     Route::post('uploadAvatar', 'UserController@postUploadAvatar');

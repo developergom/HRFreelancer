@@ -14,6 +14,8 @@ use App\Group;
 use App\Religion;
 use App\Role;
 
+use App\Ibrol\Libraries\UserLibrary;
+
 class UserController extends Controller
 {
     /**
@@ -377,5 +379,31 @@ class UserController extends Controller
 
             return redirect('profile');
         }
+    }
+
+    public function getCurrentUser(Request $request) {
+        if(Gate::denies('Home-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $data = array();
+
+        $data['uid'] = $request->user()->user_id;
+
+        return response()->json($data);
+    }
+
+    public function getSubordinate(Request $request) {
+        if(Gate::denies('Home-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $data = array();
+
+        $u = new UserLibrary;
+        $subordinate = $u->getSubOrdinateArrayID($request->user()->user_id);
+        $data['subordinate'] = $subordinate;
+
+        return response()->json($data);   
     }
 }
