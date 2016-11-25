@@ -169,6 +169,67 @@ class FreelancerController extends Controller
 
     }
 
+    public function edit(Request $request, $id)
+    {
+        if(Gate::denies('Freelancers Management-Update')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $f = new Freelancer;
+        $hf = new HistoryFreelancer;
+        $u = new UserLibrary;
+        $subordinate = $u->getSubOrdinateArrayID($request->user()->user_id);
+        //deleting session
+        $request->session()->forget('histories_' . $request->user()->user_id);
+
+        $data = array();
+        $data['freelancer'] = Freelancer::with(
+        									'historiesfreelancer', 
+        									'historiesfreelancer.department', 
+        									'historiesfreelancer.department.division', 
+        									'historiesfreelancer.position'
+        								)->where('active','1')->find($id);
+
+        $data['last_educations'] = $f->last_educations;
+        $data['divisions'] = Division::where('active', '1')->orderBy('division_name')->get();
+        $data['positions'] = Position::where('active', '1')->orderBy('position_name')->get();
+        $data['honor_types'] = $hf->honor_types;
+
+        //storing to session
+        $histories = array();
+        foreach($data['freelancer']->historiesfreelancer as $row) {
+        	$history = array();
+	    	$history['division_id'] = $row->department->division_id;
+	    	$history['division_name'] = $row->department->division->division_name;
+	    	$history['department_id'] = $row->department_id;
+	    	$history['department_name'] = $row->department->department_name;
+	    	$history['position_id'] = $row->position_id;
+	    	$history['position_name'] = $row->position->position_name;
+	    	$history['start_date'] = Carbon::createFromFormat('Y-m-d', $row->start_date)->format('d/m/Y');
+	    	$history['end_date'] = Carbon::createFromFormat('Y-m-d', $row->end_date)->format('d/m/Y');
+	    	$history['honor_type'] = $row->honor_type;
+	    	$history['honor'] = $row->honor;
+
+	    	$histories[] = $history;
+
+    		$request->session()->put('histories_' . $request->user()->user_id, $histories);
+        }
+
+        if(count($subordinate) > 0) {
+        	if(in_array($data['freelancer']->created_by, $subordinate) || $data['freelancer']->created_by==$request->user()->user_id) {
+	        	return view('vendor.material.freelancer.edit', $data);
+	        }else{
+	        	abort(403, 'Unauthorized action.');	
+	        }
+        }else{
+        	if($data['freelancer']->created_by==$request->user()->user_id) {
+        		return view('vendor.material.freelancer.edit', $data);
+        	}else{
+        		abort(403, 'Unauthorized action.');			
+        	}
+        }
+    }
+
     public function apiDelete(Request $request)
     {
         if(Gate::denies('Freelancers Management-Delete')) {
