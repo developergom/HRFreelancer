@@ -1,10 +1,10 @@
 var uid = 0;
 var subordinate = [];
 
-$(document).ready(function() {
-    getUid();
-    getSubordinate();
+getUid();
+getSubordinate();
 
+$(document).ready(function() {
     $("#grid-data").bootgrid({
         rowCount: [5, 10, 25, 50],
         ajax: true,

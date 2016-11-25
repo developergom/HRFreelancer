@@ -65,15 +65,15 @@ class FreelancerController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:100',
-            'email' => 'required|max:100',
+            'email' => 'required|max:100|unique:freelancers,email',
             'phone' => 'required|max:14',
             'other_phone' => 'max:14',
             'place_of_birth' => 'required|max:100',
             'date_of_birth' => 'required|date_format:"d/m/Y"',
             'gender' => 'required',
             'last_education' => 'required',
-            'ktp_number' => 'required',
-            'npwp' => 'required',
+            'ktp_number' => 'required|unique:freelancers,ktp_number',
+            'npwp' => 'required|unique:freelancers,npwp',
             'ktp_address' => 'required',
             'ktp_city' => 'required',
             'home_address' => 'required',
@@ -140,11 +140,6 @@ class FreelancerController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $u = new UserLibrary;
-        $subordinate = $u->getSubOrdinateArrayID($request->user()->user_id);
-
-        //dd($subordinate);
-
         $data = array();
         $data['freelancer'] = Freelancer::with(
         									'historiesfreelancer', 
@@ -153,20 +148,7 @@ class FreelancerController extends Controller
         									'historiesfreelancer.position'
         								)->where('active','1')->find($id);
 
-        if(count($subordinate) > 0) {
-        	if(in_array($data['freelancer']->created_by, $subordinate) || $data['freelancer']->created_by==$request->user()->user_id) {
-	        	return view('vendor.material.freelancer.show', $data);
-	        }else{
-	        	abort(403, 'Unauthorized action.');	
-	        }
-        }else{
-        	if($data['freelancer']->created_by==$request->user()->user_id) {
-        		return view('vendor.material.freelancer.show', $data);
-        	}else{
-        		abort(403, 'Unauthorized action.');			
-        	}
-        }
-
+        return view('vendor.material.freelancer.show', $data);
     }
 
     public function edit(Request $request, $id)
@@ -228,6 +210,81 @@ class FreelancerController extends Controller
         		abort(403, 'Unauthorized action.');			
         	}
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'email' => 'required|max:100|unique:freelancers,email,'.$id.',freelancer_id',
+            'phone' => 'required|max:14',
+            'other_phone' => 'max:14',
+            'place_of_birth' => 'required|max:100',
+            'date_of_birth' => 'required|date_format:"d/m/Y"',
+            'gender' => 'required',
+            'last_education' => 'required',
+            'ktp_number' => 'required|unique:freelancers,ktp_number,'.$id.',freelancer_id',
+            'npwp' => 'required|unique:freelancers,npwp,'.$id.',freelancer_id',
+            'ktp_address' => 'required',
+            'ktp_city' => 'required',
+            'home_address' => 'required',
+            'home_city' => 'required',
+            'bank' => 'required',
+            'bank_account_name' => 'required',
+            'bank_account_number' => 'required',
+        ]);
+
+        $obj = Freelancer::find($id);
+
+        $obj->name = $request->input('name');
+        $obj->email = $request->input('email');
+        $obj->phone = $request->input('phone');
+        $obj->phone_other = $request->input('other_phone');
+        $obj->place_of_birth = $request->input('place_of_birth');
+        $obj->date_of_birth = Carbon::createFromFormat('d/m/Y', $request->input('date_of_birth'))->toDateString();
+        $obj->gender = $request->input('gender');
+        $obj->last_education = $request->input('last_education');
+        $obj->ktp_number = $request->input('ktp_number');
+        $obj->npwp = $request->input('npwp');
+        $obj->ktp_address = $request->input('ktp_address');
+        $obj->ktp_city = $request->input('ktp_city');
+        $obj->home_address = $request->input('home_address');
+        $obj->home_city = $request->input('home_city');
+        $obj->bank = $request->input('bank');
+        $obj->bank_branch = $request->input('bank_branch');
+        $obj->bank_account_name = $request->input('bank_account_name');
+        $obj->bank_account_number = $request->input('bank_account_number');
+        $obj->updated_by = $request->user()->user_id;
+
+        $obj->save();
+
+        //delete history before updating
+        $deleted = HistoryFreelancer::where('freelancer_id', '=', $id)->delete();
+
+        //store history
+        if($request->session()->has('histories_' . $request->user()->user_id)) {
+    		$histories = $request->session()->get('histories_' . $request->user()->user_id);
+    		foreach($histories as $history) {
+    			$his = new HistoryFreelancer;
+    			$his->freelancer_id = $obj->freelancer_id;
+    			$his->department_id = $history['department_id'];
+    			$his->position_id = $history['position_id'];
+    			$his->start_date = Carbon::createFromFormat('d/m/Y', $history['start_date'])->toDateString();
+    			$his->end_date = Carbon::createFromFormat('d/m/Y', $history['end_date'])->toDateString();
+    			$his->honor_type = $history['honor_type'];
+    			$his->honor = $history['honor'];
+    			$his->active = '1';
+    			$his->created_by = $request->user()->user_id;
+
+    			$his->save();
+    		}
+
+    		$request->session()->forget('histories_' . $request->user()->user_id);
+    	}
+
+        $request->session()->flash('status', 'Data has been updated!');
+
+        return redirect('freelancer');
     }
 
     public function apiDelete(Request $request)

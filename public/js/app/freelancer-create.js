@@ -15,6 +15,7 @@ $(document).ready(function() {
 	});
 
 	$('#btn-modal-add-history').click(function() {
+		clear_modal();
 		$('#modalAddHistory').modal();
 	});
 
@@ -66,6 +67,24 @@ $(document).ready(function() {
 			}
 		});		
 	});
+
+	function clear_modal() {
+		$('#modal_division').val('');
+		$('#modal_department').val('');
+		$('#modal_position').val('');
+		$('#modal_start_date').val('');
+		$('#modal_end_date').val('');
+		$('#modal_honor_type').val('');
+		$('#modal_honor').val('');
+
+		$('#modal_department').empty();
+		$('#modal_department').append('<option value=""></option>');
+
+		$('#modal_division').selectpicker('refresh');
+		$('#modal_department').selectpicker('refresh');
+		$('#modal_position').selectpicker('refresh');
+		$('#modal_honor_type').selectpicker('refresh');
+	}
 
 	function load_histories() {
 		$.ajax({
@@ -153,6 +172,7 @@ $(document).ready(function() {
 						swal("Success!", "Your package has been added.", "success");
 						load_histories();
 						$('.btn-close-history').click();
+						clear_modal();
 					}else{
 						swal("Failed!", "Adding data failed.", "error");
 					}
