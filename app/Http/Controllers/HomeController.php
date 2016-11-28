@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Gate;
 
 use App\User;
 use App\Freelancer;
@@ -34,6 +35,7 @@ class HomeController extends Controller
     {
         //dd(Auth::user()->roles);
         $data = array();
+        $data['year'] = date('Y');
         $today = date('Y-m-d');
 
         $data['announcements'] = Announcement::where(function($query) use($today) {
@@ -83,6 +85,42 @@ class HomeController extends Controller
         return view('home', $data);
     }
 
+    public function apiGetTotalPerMonth() {
+        if(Gate::denies('Home-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $data = array();
+
+        //freelancer yang aktif per bulan
+        $tgl = $this->generateStartEndDatePerYear(date('Y'));
+        $activefreelancerpermonth = array();
+        foreach ($tgl as $key => $value) {
+            $start_date = $value['start_date'];
+            $end_date = $value['end_date'];
+
+            $q = DB::select("SELECT 
+                                count(history_freelancer_id) AS total
+                            from 
+                                history_freelancers 
+                            INNER JOIN freelancers ON freelancers.freelancer_id = history_freelancers.freelancer_id
+                            WHERE 
+                                (
+                                    (start_date <= '" . $start_date . "' AND end_date >= '" . $end_date . "') OR
+                                    (start_date <= '" . $start_date . "' AND end_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "') OR
+                                    (start_date >= '" . $start_date . "' AND start_date <= '" . $end_date . "' AND end_date >= '" . $end_date . "') OR
+                                    (start_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "')
+                                ) 
+                                AND freelancers.active = '1'");
+            $activefreelancerpermonth[$key]['month_name'] = $value['month_name'];
+            $activefreelancerpermonth[$key]['total'] = $q[0]->total;
+        }
+
+        $data['activefreelancerpermonth'] = $activefreelancerpermonth;
+
+        return response()->json($data);
+    }
+
     public function test()
     {
         $today = date('Y-m-d');
@@ -120,14 +158,58 @@ class HomeController extends Controller
 
         //$activefreelancer = HistoryFreelancer::where('end_date', '>=', "'" . $today . "'")->count();
 
+        //freelancer yang aktif per bulan
+        $tgl = $this->generateStartEndDatePerYear(date('Y'));
+        $activefreelancerpermonth = array();
+        foreach ($tgl as $key => $value) {
+            $start_date = $value['start_date'];
+            $end_date = $value['end_date'];
+
+            $q = DB::select("SELECT 
+                                count(history_freelancer_id) AS total
+                            from 
+                                history_freelancers 
+                            INNER JOIN freelancers ON freelancers.freelancer_id = history_freelancers.freelancer_id
+                            WHERE 
+                                (
+                                    (start_date <= '" . $start_date . "' AND end_date >= '" . $end_date . "') OR
+                                    (start_date <= '" . $start_date . "' AND end_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "') OR
+                                    (start_date >= '" . $start_date . "' AND start_date <= '" . $end_date . "' AND end_date >= '" . $end_date . "') OR
+                                    (start_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "')
+                                ) 
+                                AND freelancers.active = '1'");
+            $activefreelancerpermonth[$key]['month_name'] = $value['month_name'];
+            $activefreelancerpermonth[$key]['total'] = $q[0]->total;
+        }
+        
+
+
+
         $data = array();
         $data['totalfreelancer'] = $totalfreelancer;
         $data['totalperlasteducation'] = $totalperlasteducation;
         $data['activefreelancer'] = $activefreelancer[0]->total;
         $data['activefreelancerperdepartment'] = $activefreelancerperdepartment;
         $data['inactivefreelancer'] = $totalfreelancer - $activefreelancer[0]->total;
+        $data['activefreelancerpermonth'] = $activefreelancerpermonth;
         
 
         dd($data);
+    }
+
+    private function generateStartEndDatePerYear($year) {
+        $tgl = array();
+        for($i = 1; $i <= 12; $i++) {
+            $start_date = $year . '-' . $i . '-01';
+            $tanggal = Carbon::createFromFormat('Y-m-d', $start_date);
+            $bulan = $tanggal->format('m');
+            $start_date = $tanggal->toDateString();
+            $end_date = $year . '-' . $bulan . '-' . $tanggal->daysInMonth;
+            $tgl[$i]['start_date'] = $start_date;
+            $tgl[$i]['end_date'] = $end_date;
+            $tgl[$i]['month_name'] = $tanggal->format('F');
+        }
+
+        return $tgl;
     }
 }
