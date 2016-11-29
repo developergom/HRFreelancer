@@ -367,7 +367,7 @@ $(document).ready(function(){
         });
     }
 
-    //Pie Chart Gender
+    //Pie Chart Education
     if($('#pie-chart-education')[0]){
         $.plot('#pie-chart-education', pieDataEducation, {
             series: {

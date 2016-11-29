@@ -137,6 +137,9 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
     Route::post('freelancer/api/deleteHistory', 'FreelancerController@apiDeleteHistory');
     Route::get('freelancer/api/loadHistory', 'FreelancerController@apiLoadHistory');
 
+    //Reporting
+    Route::get('report', 'ReportingController@index');
+
     Route::group(['prefix' => 'config'], function() {
         //Announcement Management
         Route::post('announcement/apiList', 'AnnouncementController@apiList');
