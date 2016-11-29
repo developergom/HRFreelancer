@@ -76,11 +76,37 @@ class HomeController extends Controller
                                                         history_freelancers.end_date >= '" . $today . "'
                                                     GROUP BY departments.department_id");
 
+        //freelancer yang akan berakhir kontraknya
+        $willexpirefreelancer = DB::select("SELECT 
+                                                freelancers.freelancer_id, 
+                                                freelancers.name,
+                                                history_freelancers.department_id,
+                                                department_name,
+                                                division_name,
+                                                history_freelancers.position_id,
+                                                position_name,
+                                                history_freelancers.end_date,
+                                                datediff(history_freelancers.end_date, '" . $today . "') AS difference
+                                            FROM 
+                                                hrfreelancer.freelancers 
+                                            INNER JOIN hrfreelancer.history_freelancers ON history_freelancers.freelancer_id = freelancers.freelancer_id
+                                            INNER JOIN hrfreelancer.positions ON positions.position_id = history_freelancers.position_id
+                                            INNER JOIN hrfreelancer.departments ON departments.department_id= history_freelancers.department_id
+                                            INNER JOIN hrfreelancer.divisions ON divisions.division_id= departments.division_id
+                                            WHERE 
+                                                freelancers.active = '1' AND
+                                                datediff(history_freelancers.end_date, '" . $today . "') <= 30 AND
+                                                datediff(history_freelancers.end_date, '" . $today . "') > 0
+                                            ORDER BY difference");
+
         $data['totalfreelancer'] = $totalfreelancer;
         $data['totalperlasteducation'] = $totalperlasteducation;
         $data['activefreelancer'] = $activefreelancer[0]->total;
         $data['activefreelancerperdepartment'] = $activefreelancerperdepartment;
         $data['inactivefreelancer'] = $totalfreelancer - $activefreelancer[0]->total;
+        $data['willexpirefreelancer'] = $willexpirefreelancer;
+
+        //dd($data);
 
         return view('home', $data);
     }

@@ -148,6 +148,43 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Freelancer whose contract will be expired</h2>
+                </div>
+                
+                <div class="card-body card-padding-sm">
+                    <div class="table-responsive">
+                        <table id="grid-data" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="name" data-order="asc"><center>Name</center></th>
+                                    <th data-column-id="division" data-order="asc"><center>Division</center></th>
+                                    <th data-column-id="department" data-order="asc"><center>Department</center></th>
+                                    <th data-column-id="position" data-order="asc"><center>Position</center></th>
+                                    <th data-column-id="end_date" data-order="asc"><center>End Date Contract</center></th>
+                                    <th data-column-id="link" data-formatter="link" data-sortable="false"><center>Action</center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($willexpirefreelancer as $row)
+                                <tr>
+                                    <td>{{ $row->name }}</td>
+                                    <td>{{ $row->division_name }}</td>
+                                    <td>{{ $row->department_name }}</td>
+                                    <td>{{ $row->position_name }}</td>
+                                    <td><center>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->end_date)->format('d/m/Y') }}</center></td>
+                                    <td><center><a title="View Detail" href="/freelancer/{{ $row->freelancer_id }}"><span class="zmdi zmdi-more"></span></a></center></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
 @endsection
 
