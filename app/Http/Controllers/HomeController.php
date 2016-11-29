@@ -121,6 +121,46 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    public function apiGetTotalPerGender() {
+        if(Gate::denies('Home-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $data = array();
+
+        $q = DB::select("
+                    SELECT 
+                        gender, COUNT(freelancer_id) AS total
+                    FROM hrfreelancer.freelancers 
+                    WHERE 
+                        active = '1' 
+                    GROUP BY gender");
+
+        $data['result'] = $q;
+
+        return response()->json($data);
+    }
+
+    public function apiGetTotalPerEducation() {
+        if(Gate::denies('Home-Read')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $data = array();
+
+        $q = DB::select("
+                    SELECT 
+                        last_education AS education, COUNT(freelancer_id) AS total
+                    FROM hrfreelancer.freelancers 
+                    WHERE 
+                        active = '1' 
+                    GROUP BY last_education");
+
+        $data['result'] = $q;
+
+        return response()->json($data);
+    }
+
     public function test()
     {
         $today = date('Y-m-d');

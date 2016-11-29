@@ -122,6 +122,32 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Freelancer per Gender</h2>
+                </div>
+                
+                <div class="card-body card-padding">
+                    <div id="pie-chart-gender" class="flot-chart-pie"></div>
+                    <div class="flc-pie-gender hidden-xs"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Freelancer per Education</h2>
+                </div>
+                
+                <div class="card-body card-padding">
+                    <div id="pie-chart-education" class="flot-chart-pie"></div>
+                    <div class="flc-pie-education hidden-xs"></div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -133,7 +159,10 @@
 @section('customjs')
 <script type="text/javascript">
 var dataTotal = [];
+var pieDataGender = [];
+var pieDataEducation = [];
 var monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var color = ['#F44336', '#03A9F4', '#8BC34A', '#FFEB3B', '#009688', '#f89E17', '#4fFDBD6', '#584DC3', '#FC7CB2'];
 
 function loadTotalFreelancersData() {
     $.ajax({
@@ -156,11 +185,53 @@ function loadTotalFreelancersData() {
     });
 }
 
+function loadFreelancersDataPerGender() {
+    $.ajax({
+        url: base_url + 'api/getTotalPerGender',
+        type: 'GET',
+        dataType: 'json',
+        error: function(data) {
+            console.log(data);
+        },
+        success: function(data) {
+            $.each(data.result, function(key, value){
+                x = {};
+                x.data = value.total;
+                x.color = color[key];
+                x.label = value.gender;
+
+                pieDataGender.push(x);
+            });
+        }
+    });   
+}
+
+function loadFreelancersDataPerEducation() {
+    $.ajax({
+        url: base_url + 'api/getTotalPerEducation',
+        type: 'GET',
+        dataType: 'json',
+        error: function(data) {
+            console.log(data);
+        },
+        success: function(data) {
+            $.each(data.result, function(key, value){
+                x = {};
+                x.data = value.total;
+                x.color = color[key];
+                x.label = value.education;
+
+                pieDataEducation.push(x);
+            });
+        }
+    });   
+}
+
 loadTotalFreelancersData();
+loadFreelancersDataPerGender();
+loadFreelancersDataPerEducation();
 
 $(document).ready(function(){
-    //console.log(barData);
-
     $('#text').marquee({
         duration: 60000,
         startVisible: true,
@@ -180,7 +251,7 @@ $(document).ready(function(){
         }
     });
 
-    /* Let's create the chart */
+    /* Let's create the bar chart */
     if ($('#bar-chart')[0]) {
         $.plot($("#bar-chart"), barData, {
             grid : {
@@ -210,7 +281,7 @@ $(document).ready(function(){
                     style: "normal",
                     color: "#9f9f9f"
                 },
-                shadowSize: 3,
+                shadowSize: 0,
             },
     
             legend:{
@@ -222,6 +293,78 @@ $(document).ready(function(){
             }
         });
     }
+
+    //Pie Chart Gender
+    if($('#pie-chart-gender')[0]){
+        $.plot('#pie-chart-gender', pieDataGender, {
+            series: {
+                pie: {
+                    show: true,
+                    stroke: { 
+                        width: 2,
+                    },
+                },
+            },
+            legend: {
+                container: '.flc-pie-gender',
+                backgroundOpacity: 0.5,
+                noColumns: 0,
+                backgroundColor: "white",
+                lineWidth: 0
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                shifts: {
+                    x: 20,
+                    y: 0
+                },
+                defaultTheme: false,
+                cssClass: 'flot-tooltip'
+            }
+            
+        });
+    }
+
+    //Pie Chart Gender
+    if($('#pie-chart-education')[0]){
+        $.plot('#pie-chart-education', pieDataEducation, {
+            series: {
+                pie: {
+                    show: true,
+                    stroke: { 
+                        width: 2,
+                    },
+                },
+            },
+            legend: {
+                container: '.flc-pie-education',
+                backgroundOpacity: 0.5,
+                noColumns: 0,
+                backgroundColor: "white",
+                lineWidth: 0
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                shifts: {
+                    x: 20,
+                    y: 0
+                },
+                defaultTheme: false,
+                cssClass: 'flot-tooltip'
+            }
+            
+        });
+    }
     
     /* Tooltips for Flot Charts */
     
@@ -230,7 +373,7 @@ $(document).ready(function(){
             if (item) {
                 var x = item.datapoint[0].toFixed(2),
                     y = item.datapoint[1].toFixed(0);
-                $(".flot-tooltip").html(item.series.label + " at " + monthName[x - 1] + " is " + y + " person").css({top: item.pageY+5, left: item.pageX+5}).show();
+                $(".flot-tooltip").html(item.series.label + " at " + monthName[x - 1] + " : " + y + " person").css({top: item.pageY+5, left: item.pageX+5}).show();
             }
             else {
                 $(".flot-tooltip").hide();

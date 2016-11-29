@@ -32,6 +32,8 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index')->middleware(['auth','menu']);
 Route::get('/api/getTotalPerMonth', 'HomeController@apiGetTotalPerMonth')->middleware(['auth','menu']);
+Route::get('/api/getTotalPerGender', 'HomeController@apiGetTotalPerGender')->middleware(['auth','menu']);
+Route::get('/api/getTotalPerEducation', 'HomeController@apiGetTotalPerEducation')->middleware(['auth','menu']);
 Route::get('/test', 'HomeController@test')->middleware(['auth','menu']);
 
 //User
