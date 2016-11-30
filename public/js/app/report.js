@@ -15,6 +15,14 @@ $(document).ready(function() {
 	$('#btn_clear_report').click(function() {
 		refresh_report_variable();
 	});
+
+	$('#btn_export_report').click(function() {
+		$('#grid-data-result').table2excel({
+			exclude: ".noExl",
+			name: "Report GoM Freelancers",
+			filename: "report_gom_freelancer"
+		});
+	});
 });
 
 function generate_report() {
@@ -68,8 +76,8 @@ function generate_report() {
 				html += '<td>'  + value.npwp + '</td>';
 				html += '<td>'  + value.bank + '</td>';
 				html += '<td>'  + value.bank_branch + '</td>';
-				html += '<td>'  + value.bank_branch_name + '</td>';
-				html += '<td>'  + value.bank_branch_number + '</td>';
+				html += '<td>'  + value.bank_account_name + '</td>';
+				html += '<td>'  + value.bank_account_number + '</td>';
 				html += '<td>'  + value.ktp_number + '</td>';
 				html += '<td>'  + value.ktp_address + '</td>';
 				html += '<td>'  + value.ktp_city + '</td>';

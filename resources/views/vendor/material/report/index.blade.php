@@ -85,6 +85,7 @@
 						            <div class="form-group">
 						            	<button id="btn_generate_report" class="btn btn-primary waves-effect">Generate</button>
 						            	<button id="btn_clear_report" class="btn btn-danger waves-effect">Clear</button>
+						            	<button id="btn_export_report" class="btn btn-success waves-effect">Export</button>
 						            </div>
 				            	</form>
 				            </div>
@@ -144,7 +145,7 @@
 
 @section('vendorjs')
 <script src="{{ url('js/bootstrap-select.min.js') }}"></script>
-<script src="{{ url('js/input-mask.min.js') }}"></script>
+<script src="{{ url('js/jquery.table2excel.js') }}"></script>
 @endsection
 
 @section('customjs')
