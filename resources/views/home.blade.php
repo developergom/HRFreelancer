@@ -268,13 +268,15 @@ loadTotalFreelancersData();
 loadFreelancersDataPerGender();
 loadFreelancersDataPerEducation();
 
-$(document).ajaxSuccess(function(){
+$(document).ready(function() {
     $('#text').marquee({
         duration: 60000,
         startVisible: true,
         duplicated: true
-      });
+    });
+});
 
+$(document).ajaxSuccess(function(){
     var barData = new Array();
     barData.push({
         data : dataTotal,
