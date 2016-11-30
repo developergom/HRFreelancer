@@ -24,7 +24,7 @@
             <form method="POST" role="form" action="{{ url('/login') }}" id="form-login">
             {{ csrf_field() }}
             <div>
-                <h3>{!! Cache::get('setting_app_name') !!}</h3>
+                <h3>{!! Cache::get('setting_app_name') !!}</h3><br/>
             </div>
             <div class="clearfix"></div>
             <div class="input-group m-b-20 {{ $errors->has('user_name') ? ' has-error' : '' }}">
