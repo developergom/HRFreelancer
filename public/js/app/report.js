@@ -26,13 +26,13 @@ function generate_report() {
 	year_ids = $('#year').val();
 	month_ids = $('#month').val();
 
-	console.log("department " + department_ids);
+	/*console.log("department " + department_ids);
 	console.log("position " + position_ids);
 	console.log("gender " + gender_ids);
 	console.log("education " + education_ids);
 	console.log("honor_type " + honor_type_ids);
 	console.log("year " + year_ids);
-	console.log("month " + month_ids);
+	console.log("month " + month_ids);*/
 
 	$.ajax({
 		url: base_url + 'report/api/generaterReport',
@@ -52,7 +52,40 @@ function generate_report() {
 			console.log('error');
 		},
 		success: function(data) {
-			
+			console.log(data.result);
+			var html = '';
+			$('#grid-data-result tbody').empty();
+			$.each(data.result, function(key, value){
+				html += '<tr>';
+				html += '<td>'  + value.name + '</td>';
+				html += '<td>'  + value.email + '</td>';
+				html += '<td>'  + value.phone + '</td>';
+				html += '<td>'  + value.phone_other + '</td>';
+				html += '<td>'  + value.place_of_birth + '</td>';
+				html += '<td>'  + value.date_of_birth + '</td>';
+				html += '<td>'  + value.gender + '</td>';
+				html += '<td>'  + value.last_education + '</td>';
+				html += '<td>'  + value.npwp + '</td>';
+				html += '<td>'  + value.bank + '</td>';
+				html += '<td>'  + value.bank_branch + '</td>';
+				html += '<td>'  + value.bank_branch_name + '</td>';
+				html += '<td>'  + value.bank_branch_number + '</td>';
+				html += '<td>'  + value.ktp_number + '</td>';
+				html += '<td>'  + value.ktp_address + '</td>';
+				html += '<td>'  + value.ktp_city + '</td>';
+				html += '<td>'  + value.home_address + '</td>';
+				html += '<td>'  + value.home_city + '</td>';
+				html += '<td>'  + value.division_name + '</td>';
+				html += '<td>'  + value.department_name + '</td>';
+				html += '<td>'  + value.position_name + '</td>';
+				html += '<td>'  + value.start_date + '</td>';
+				html += '<td>'  + value.end_date + '</td>';
+				html += '<td>'  + value.honor_type + '</td>';
+				html += '<td>'  + value.honor + '</td>';
+				html += '</tr>';
+			});
+
+			$('#grid-data-result tbody').append(html);
 		}
 	});
 }
@@ -82,11 +115,13 @@ function refresh_report_variable() {
 	$('#year').selectpicker('refresh');
 	$('#month').selectpicker('refresh');
 
-	console.log("department " + department_ids);
+	$('#grid-data-result tbody').empty();
+
+	/*console.log("department " + department_ids);
 	console.log("position " + position_ids);
 	console.log("gender " + gender_ids);
 	console.log("education " + education_ids);
 	console.log("honor_type " + honor_type_ids);
 	console.log("year " + year_ids);
-	console.log("month " + month_ids);
+	console.log("month " + month_ids);*/
 }

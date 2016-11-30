@@ -98,6 +98,41 @@
 			            </ul>
 			            <div class="tab-content">
 				            <div role="tabpanel" class="tab-pane active" id="resultsection">
+				            	<div class="table-responsive">
+							        <table id="grid-data-result" class="table table-hover">
+							            <thead>
+							                <tr>
+							                    <th>Name</th>
+							                    <th>Email</th>
+							                    <th>Phone</th>
+							                    <th>Other Phone</th>
+							                    <th>Place of Birth</th>
+							                    <th>Date of Birth</th>
+							                    <th>Gender</th>
+							                    <th>Education</th>
+							                    <th>NPWP</th>
+							                    <th>Bank</th>
+							                    <th>Bank Branch</th>
+							                    <th>Bank Account Name</th>
+							                    <th>Bank Account Number</th>
+							                    <th>KTP Number</th>
+							                    <th>KTP Address</th>
+							                    <th>KTP City</th>
+							                    <th>Home Address</th>
+							                    <th>Home City</th>
+							                    <th>Division</th>
+							                    <th>Department</th>
+							                    <th>Position</th>
+							                    <th>Start Date</th>
+							                    <th>End Date</th>
+							                    <th>Honor Type</th>
+							                    <th>Honor</th>
+							                </tr>
+							            </thead>
+							            <tbody>
+							            </tbody>
+							        </table>
+							    </div>
 				            </div>
 				        </div>
 				    </div>

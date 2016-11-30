@@ -43,7 +43,7 @@ class ReportingController extends Controller
     	$year_ids = $request->input('year_ids');
     	$month_ids = $request->input('month_ids');
 
-    	//dd(implode(', ', array_map(null, $department_ids)));
+    	//dd($department_ids);
 
     	$q = "SELECT 
 				freelancers.freelancer_id,
@@ -82,31 +82,31 @@ class ReportingController extends Controller
 				freelancers.active = '1'";
 
 		if($department_ids != "") {
-    		$q .= " AND history_freelancers.department_id IN ('" . implode(', ', array_map(null, $department_ids)) . "')";
+    		$q .= " AND history_freelancers.department_id IN (" . implode(', ', array_map(null, $department_ids)) . ")";
     	}
 
     	if($position_ids != "") {
-    		$q .= " AND history_freelancers.position_id IN ('" . implode(', ', array_map(null, $position_ids)) . "')";
+    		$q .= " AND history_freelancers.position_id IN (" . implode(', ', array_map(null, $position_ids)) . ")";
     	}
 
     	if($gender_ids != "") {
-    		$q .= " AND freelancers.gender IN ('" . implode(', ', array_map(null, $gender_ids)) . "')";
+    		$q .= " AND freelancers.gender IN ('" . implode('\',\'', array_map('strval', $gender_ids)) . "')";
     	}
 
     	if($education_ids != "") {
-    		$q .= " AND freelancers.last_education IN ('" . implode(', ', array_map(null, $education_ids)) . "')";
+    		$q .= " AND freelancers.last_education IN ('" . implode('\',\'', array_map('strval', $education_ids)) . "')";
     	}
 
     	if($honor_type_ids != "") {
-    		$q .= " AND history_freelancers.honor_type IN ('" . implode(', ', array_map(null, $honor_type_ids)) . "')";
+    		$q .= " AND history_freelancers.honor_type IN ('" . implode('\',\'', array_map('strval', $honor_type_ids)) . "')";
     	}
 
     	if($year_ids != "") {
-    		$q .= " AND year(history_freelancers.start_date) IN ('" . implode(', ', array_map(null, $year_ids)) . "')";
+    		$q .= " AND year(history_freelancers.start_date) IN (" . implode(', ', array_map(null, $year_ids)) . ")";
     	}
 
     	if($month_ids != "") {
-    		$q .= " AND month(history_freelancers.start_date) IN ('" . implode(', ', array_map(null, $month_ids)) . "')";
+    		$q .= " AND month(history_freelancers.start_date) IN ('" . implode('\',\'', array_map('strval', $month_ids)) . "')";
     	}
 
     	$q .= ' ORDER BY name ASC';
