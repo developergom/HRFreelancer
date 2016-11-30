@@ -85,7 +85,6 @@
 						            <div class="form-group">
 						            	<button id="btn_generate_report" class="btn btn-primary waves-effect">Generate</button>
 						            	<button id="btn_clear_report" class="btn btn-danger waves-effect">Clear</button>
-						            	<button id="btn_export_report" class="btn btn-success waves-effect">Export</button>
 						            </div>
 				            	</form>
 				            </div>
@@ -133,6 +132,11 @@
 							            <tbody>
 							            </tbody>
 							        </table>
+							    </div>
+							    <div class="row">
+							    	<div class="col-md-12"><br/>
+							    		<button id="btn_export_report" class="btn btn-success waves-effect">Export</button>
+							    	</div>
 							    </div>
 				            </div>
 				        </div>

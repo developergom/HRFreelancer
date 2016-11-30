@@ -8,6 +8,7 @@ var year_ids = [];
 var month_ids = [];
 
 $(document).ready(function() {
+	$('#btn_export_report').attr('disabled', true);
 	$('#btn_generate_report').click(function() {
 		generate_report();
 	});
@@ -94,6 +95,7 @@ function generate_report() {
 			});
 
 			$('#grid-data-result tbody').append(html);
+			$('#btn_export_report').attr('disabled', false);
 		}
 	});
 }
@@ -124,6 +126,7 @@ function refresh_report_variable() {
 	$('#month').selectpicker('refresh');
 
 	$('#grid-data-result tbody').empty();
+	$('#btn_export_report').attr('disabled', true);
 
 	/*console.log("department " + department_ids);
 	console.log("position " + position_ids);
