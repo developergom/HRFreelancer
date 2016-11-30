@@ -139,6 +139,7 @@ Route::group(['middleware' => ['auth', 'menu']], function() {
 
     //Reporting
     Route::get('report', 'ReportingController@index');
+    Route::post('report/api/generaterReport', 'ReportingController@apiGenerateReport');
 
     Route::group(['prefix' => 'config'], function() {
         //Announcement Management

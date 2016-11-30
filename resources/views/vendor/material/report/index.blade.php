@@ -16,7 +16,7 @@
 			            </ul>
 			            <div class="tab-content">
 				            <div role="tabpanel" class="tab-pane active" id="filtersection">
-				            	<form class="form" role="form">
+				            	<form class="form" role="form" action="javascript:void(0)">
 				            		<div class="form-group">
 						                <label for="department_id">Department</label>
 						                <select name="department_id" id="department_id" class="form-control input-sm selectpicker" data-live-search="true" multiple>
@@ -60,6 +60,7 @@
 						            <div class="form-group">
 						                <label for="year">Year</label>
 						                <select name="year" id="year" class="form-control input-sm selectpicker" data-live-search="true" multiple>
+			                                <option value="2015">2015</option>
 			                                <option value="2016">2016</option>
 			                                <option value="2017">2017</option>
 			                            </select>
@@ -80,6 +81,10 @@
 			                                <option value="11">November</option>
 			                                <option value="12">December</option>
 			                            </select>
+						            </div>
+						            <div class="form-group">
+						            	<button id="btn_generate_report" class="btn btn-primary waves-effect">Generate</button>
+						            	<button id="btn_clear_report" class="btn btn-danger waves-effect">Clear</button>
 						            </div>
 				            	</form>
 				            </div>
@@ -105,4 +110,8 @@
 @section('vendorjs')
 <script src="{{ url('js/bootstrap-select.min.js') }}"></script>
 <script src="{{ url('js/input-mask.min.js') }}"></script>
+@endsection
+
+@section('customjs')
+<script src="{{ url('js/app/report.js') }}"></script>
 @endsection
