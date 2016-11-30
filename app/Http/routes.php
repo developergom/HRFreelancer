@@ -14,14 +14,13 @@
 /*Route::get('/', function () {
     return view('home');
 });*/
+
 Route::get('dropzone', 'DropzoneController@index');
 Route::post('dropzone/uploadFiles', 'DropzoneController@uploadFiles');
 Route::post('dropzone/removeFile', 'DropzoneController@removeFile');
 Route::get('dropzone/getPreviousUploaded', 'DropzoneController@getPreviousUploaded');
 
 Route::get('/', 'HomeController@index')->middleware(['auth','menu']);
-
-Route::get('/test', 'Test@index');
 
 Route::get('/download/file/{id}', 'DownloadController@downloadFile');
 Route::get('/api/loadNotification', 'NotificationController@loadNotification');

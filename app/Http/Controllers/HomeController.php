@@ -259,8 +259,9 @@ class HomeController extends Controller
         $data['inactivefreelancer'] = $totalfreelancer - $activefreelancer[0]->total;
         $data['activefreelancerpermonth'] = $activefreelancerpermonth;
         
-
-        dd($data);
+        $nik = \Illuminate\Support\Facades\Crypt::make('025407');
+        //dd($nik);
+        //dd($data);
     }
 
     private function generateStartEndDatePerYear($year) {
