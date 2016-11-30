@@ -268,7 +268,7 @@ loadTotalFreelancersData();
 loadFreelancersDataPerGender();
 loadFreelancersDataPerEducation();
 
-$(document).ready(function(){
+$(document).ajaxSuccess(function(){
     $('#text').marquee({
         duration: 60000,
         startVisible: true,
