@@ -1,3 +1,12 @@
+
+/*
+ *  jQuery table2excel - v1.0.2
+ *  jQuery plugin to export an .xls file in browser from an HTML table
+ *  https://github.com/rainabba/jquery-table2excel
+ *
+ *  Made by rainabba
+ *  Under MIT License
+ */
 //table2excel.js
 ;(function ( $, window, document, undefined ) {
     var pluginName = "table2excel",
@@ -25,8 +34,9 @@
         init: function () {
             var e = this;
 
+            var utf8Heading = "<meta http-equiv=\"content-type\" content=\"application/vnd.ms-excel; charset=UTF-8\">";
             e.template = {
-                head: "<html xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:excel\" xmlns=\"http://www.w3.org/TR/REC-html40\"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>",
+                head: "<html xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:excel\" xmlns=\"http://www.w3.org/TR/REC-html40\">" + utf8Heading + "<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>",
                 sheet: {
                     head: "<x:ExcelWorksheet><x:Name>",
                     tail: "</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>"
@@ -50,10 +60,10 @@
                 e.tableRows.push(tempRows);
             });
 
-            e.tableToExcel(e.tableRows, e.settings.name);
+            e.tableToExcel(e.tableRows, e.settings.name, e.settings.sheetName);
         },
 
-        tableToExcel: function (table, name) {
+        tableToExcel: function (table, name, sheetName) {
             var e = this, fullTemplate="", i, link, a;
 
             e.uri = "data:application/vnd.ms-excel;base64,";
@@ -65,17 +75,21 @@
                     return c[p];
                 });
             };
+
+            sheetName = typeof sheetName === "undefined" ? "Sheet" : sheetName;
+
             e.ctx = {
                 worksheet: name || "Worksheet",
-                table: table
+                table: table,
+                sheetName: sheetName,
             };
 
             fullTemplate= e.template.head;
 
             if ( $.isArray(table) ) {
                 for (i in table) {
-                    //fullTemplate += e.template.sheet.head + "{worksheet" + i + "}" + e.template.sheet.tail;
-                    fullTemplate += e.template.sheet.head + "Table" + i + "" + e.template.sheet.tail;
+                      //fullTemplate += e.template.sheet.head + "{worksheet" + i + "}" + e.template.sheet.tail;
+                      fullTemplate += e.template.sheet.head + sheetName + i + e.template.sheet.tail;
                 }
             }
 
@@ -130,7 +144,8 @@
     };
 
     function getFileName(settings) {
-        return ( settings.filename ? settings.filename : "table2excel") + ".xls";
+        return ( settings.filename ? settings.filename : "table2excel" ) +
+               ( settings.fileext ? settings.fileext : ".xlsx" );
     }
 
     $.fn[ pluginName ] = function ( options ) {
