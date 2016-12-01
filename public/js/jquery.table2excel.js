@@ -145,7 +145,7 @@
 
     function getFileName(settings) {
         return ( settings.filename ? settings.filename : "table2excel" ) +
-               ( settings.fileext ? settings.fileext : ".xlsx" );
+               ( settings.fileext ? settings.fileext : ".xls" );
     }
 
     $.fn[ pluginName ] = function ( options ) {
