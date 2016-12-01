@@ -72,7 +72,11 @@
             };
             e.format = function (s, c) {
                 return s.replace(/{(\w+)}/g, function (m, p) {
-                    return c[p];
+                    if(typeof(c[p]) != "function"){
+                        return c[p];
+                    }else{
+                        return '';
+                    }
                 });
             };
 
