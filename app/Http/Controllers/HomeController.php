@@ -10,6 +10,7 @@ use Gate;
 
 use App\User;
 use App\Freelancer;
+use App\Department;
 
 use App\Announcement;
 use Carbon\Carbon;
@@ -118,9 +119,43 @@ class HomeController extends Controller
 
         $data = array();
 
-        //freelancer yang aktif per bulan
+        $departments = Department::where('active', '1')->get();
+
         $tgl = $this->generateStartEndDatePerYear(date('Y'));
-        $activefreelancerpermonth = array();
+        $total = array();
+        $i = 0;
+        foreach($departments as $department) {
+            $total[$i]['department_name'] = $department->department_name;
+            $total[$i]['total'] = array();
+
+            foreach ($tgl as $key => $value) {
+                $start_date = $value['start_date'];
+                $end_date = $value['end_date'];
+
+                $q = DB::select("SELECT 
+                                    count(history_freelancer_id) AS total
+                                from 
+                                    history_freelancers 
+                                INNER JOIN freelancers ON freelancers.freelancer_id = history_freelancers.freelancer_id
+                                WHERE 
+                                    (
+                                        (start_date <= '" . $start_date . "' AND end_date >= '" . $end_date . "') OR
+                                        (start_date <= '" . $start_date . "' AND end_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "') OR
+                                        (start_date >= '" . $start_date . "' AND start_date <= '" . $end_date . "' AND end_date >= '" . $end_date . "') OR
+                                        (start_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "')
+                                    ) 
+                                    AND history_freelancers.department_id = '" . $department->department_id . "'
+                                    AND freelancers.active = '1'");
+                $total[$i]['total'][$key]['month_name'] = $value['month_name'];
+                $total[$i]['total'][$key]['total'] = $q[0]->total;
+            }
+
+            $i++;
+        }
+
+        //untuk total freelancer
+        $total[$i]['department_name'] = 'Total';
+        $total[$i]['total'] = array();
         foreach ($tgl as $key => $value) {
             $start_date = $value['start_date'];
             $end_date = $value['end_date'];
@@ -138,11 +173,11 @@ class HomeController extends Controller
                                     (start_date >= '" . $start_date . "' AND end_date <= '" . $end_date . "')
                                 ) 
                                 AND freelancers.active = '1'");
-            $activefreelancerpermonth[$key]['month_name'] = $value['month_name'];
-            $activefreelancerpermonth[$key]['total'] = $q[0]->total;
+            $total[$i]['total'][$key]['month_name'] = $value['month_name'];
+            $total[$i]['total'][$key]['total'] = $q[0]->total;
         }
 
-        $data['activefreelancerpermonth'] = $activefreelancerpermonth;
+        $data = $total;
 
         return response()->json($data);
     }

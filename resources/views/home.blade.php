@@ -195,11 +195,29 @@
 
 @section('customjs')
 <script type="text/javascript">
+var barData = [];
 var dataTotal = [];
 var pieDataGender = [];
 var pieDataEducation = [];
 var monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-var color = ['#F44336', '#03A9F4', '#8BC34A', '#FFEB3B', '#009688', '#f89E17', '#4fFDBD6', '#584DC3', '#FC7CB2'];
+var color = [
+                '#F44336', 
+                '#03A9F4', 
+                '#8BC34A', 
+                '#FFEB3B', 
+                '#009688', 
+                '#f89E17', 
+                '#fFDBD6', 
+                '#584DC3', 
+                '#FC7CB2', 
+                '#ffff99',
+                '#ff9966',
+                '#ff6666',
+                '#990033',
+                '#99ccff',
+                '#666699',
+                '#0077b3'
+            ];
 
 function loadTotalFreelancersData() {
     $.ajax({
@@ -210,13 +228,29 @@ function loadTotalFreelancersData() {
             console.log(data);
         },
         success: function(data) {
-            //console.log(data);
-            $.each(data.activefreelancerpermonth, function(key, value){
-                x = new Array();
-                x.push(key);
-                x.push(value.total);
+            $.each(data, function(key, value){
+                var total = new Array();
+                $.each(value.total, function(k, v){
+                    x = new Array();
+                    x.push(k);
+                    x.push(v.total);
 
-                dataTotal.push(x);
+                    total.push(x);
+                });
+
+                barData.push({
+                    data : total,
+                    label: " " + value.department_name + " ",
+                    bars : {
+                            show : true,
+                            barWidth : 0.05,
+                            order : key,
+                            lineWidth: 1,
+                            fillColor: color[key],
+                            position: 'center'
+                    }
+                });
+
             });
         }
     });
@@ -277,22 +311,12 @@ $(document).ready(function() {
 });
 
 $(document).ajaxSuccess(function(){
-    var barData = new Array();
-    barData.push({
-        data : dataTotal,
-        label: 'Total Freelancer',
-        bars : {
-                show : true,
-                barWidth : 0.5,
-                order : 1,
-                lineWidth: 0,
-                fillColor: '#8BC34A'
-        }
-    });
+    console.log(barData);
 
     /* Let's create the bar chart */
     if ($('#bar-chart')[0]) {
         $.plot($("#bar-chart"), barData, {
+
             grid : {
                     borderWidth: 1,
                     borderColor: '#eee',
@@ -321,6 +345,7 @@ $(document).ajaxSuccess(function(){
                     color: "#9f9f9f"
                 },
                 shadowSize: 0,
+                axisLabel: 'Month'
             },
     
             legend:{
@@ -329,7 +354,26 @@ $(document).ajaxSuccess(function(){
                 noColumns: 0,
                 backgroundColor: "white",
                 lineWidth: 0
-            }
+            },
+
+            colors : [
+                '#F44336', 
+                '#03A9F4', 
+                '#8BC34A', 
+                '#FFEB3B', 
+                '#009688', 
+                '#f89E17', 
+                '#fFDBD6', 
+                '#584DC3', 
+                '#FC7CB2', 
+                '#ffff99',
+                '#ff9966',
+                '#ff6666',
+                '#990033',
+                '#99ccff',
+                '#666699',
+                '#0077b3'
+            ]
         });
     }
 
@@ -411,8 +455,9 @@ $(document).ajaxSuccess(function(){
         $(".flot-chart").bind("plothover", function (event, pos, item) {
             if (item) {
                 var x = item.datapoint[0].toFixed(2),
-                    y = item.datapoint[1].toFixed(0);
-                $(".flot-tooltip").html(item.series.label + " at " + monthName[x - 1] + " : " + y + " person").css({top: item.pageY+5, left: item.pageX+5}).show();
+                    y = item.datapoint[1].toFixed(0),
+                    m = item.dataIndex;
+                $(".flot-tooltip").html(item.series.label + " at " + monthName[m] + " : " + y + " person").css({top: item.pageY+5, left: item.pageX+5}).show();
             }
             else {
                 $(".flot-tooltip").hide();

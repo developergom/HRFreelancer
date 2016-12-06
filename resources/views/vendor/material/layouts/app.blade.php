@@ -420,6 +420,7 @@
         <script src="{{ url('js/jquery.flot.resize.js') }}"></script>
         <script src="{{ url('js/jquery.flot.pie.js') }}"></script>
         <script src="{{ url('js/jquery.flot.tooltip.min.js') }}"></script>
+        <script src="{{ url('js/jquery.flot.orderBars.js') }}"></script>
         <script src="{{ url('js/curvedlines.js') }}"></script>
         <script src="{{ url('js/moment.min.js') }}"></script>
         <script src="{{ url('js/fullcalendar.min.js') }}"></script>
