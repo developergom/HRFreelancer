@@ -16,7 +16,8 @@ class HistoryFreelancer extends Model
 				'honor',
 				'honor_type',
 				'start_date',
-				'end_date'
+				'end_date',
+				'notes'
 	];
 
 	public $honor_types = [

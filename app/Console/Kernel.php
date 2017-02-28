@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use Mail;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -14,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
+        Commands\TestCommand::class,
     ];
 
     /**
@@ -26,5 +29,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('testcommand:send')->dailyAt('10:00');
+        //$schedule->command('testcommand:send')->dailyAt('14:44');
     }
 }

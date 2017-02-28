@@ -76,6 +76,7 @@ $(document).ready(function() {
 		$('#modal_end_date').val('');
 		$('#modal_honor_type').val('');
 		$('#modal_honor').val('');
+		$('#modal_notes').val('');
 
 		$('#modal_department').empty();
 		$('#modal_department').append('<option value=""></option>');
@@ -107,6 +108,7 @@ $(document).ready(function() {
 					html += '<td>' + value.end_date + '</td>';
 					html += '<td>' + value.honor_type + '</td>';
 					html += '<td>' + convertNumber(value.honor) + '</td>';
+					html += '<td>' + value.notes + '</td>';
 					html += '<td><a title="Delete History" href="javascript:void(0);" class="btn btn-icon btn-delete-history waves-effect waves-circle" type="button" data-key="' + key + '"><span class="zmdi zmdi-delete"></span></a></td>';
 					html += '</tr>';
 				});
@@ -161,6 +163,7 @@ $(document).ready(function() {
 				    	end_date : $('#modal_end_date').val(),
 				    	honor_type : $('#modal_honor_type').val(),
 				    	honor : $('#modal_honor').val(),
+				    	notes : $('#modal_notes').val(),
 						_token: myToken
 					},
 				type: 'POST',

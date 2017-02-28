@@ -293,6 +293,7 @@
 				                                    <th data-column-id="end_date" data-order="asc">End Date</th>
 				                                    <th data-column-id="honor_type" data-order="asc">Honor Type</th>
 				                                    <th data-column-id="honor" data-order="asc">Honor</th>
+				                                    <th data-column-id="notes" data-order="asc">Notes</th>
 				                                    <th data-column-id="link" data-formatter="link-rua" data-sortable="false">Action</th>
 				                                </tr>
 				                            </thead>

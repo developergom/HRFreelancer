@@ -119,7 +119,8 @@ class FreelancerController extends Controller
     			$his->start_date = Carbon::createFromFormat('d/m/Y', $history['start_date'])->toDateString();
     			$his->end_date = Carbon::createFromFormat('d/m/Y', $history['end_date'])->toDateString();
     			$his->honor_type = $history['honor_type'];
-    			$his->honor = $history['honor'];
+                $his->honor = $history['honor'];
+    			$his->notes = $history['notes'];
     			$his->active = '1';
     			$his->created_by = $request->user()->user_id;
 
@@ -190,7 +191,8 @@ class FreelancerController extends Controller
 	    	$history['start_date'] = Carbon::createFromFormat('Y-m-d', $row->start_date)->format('d/m/Y');
 	    	$history['end_date'] = Carbon::createFromFormat('Y-m-d', $row->end_date)->format('d/m/Y');
 	    	$history['honor_type'] = $row->honor_type;
-	    	$history['honor'] = $row->honor;
+            $history['honor'] = $row->honor;
+	    	$history['notes'] = $row->notes;
 
 	    	$histories[] = $history;
 
@@ -272,7 +274,8 @@ class FreelancerController extends Controller
     			$his->start_date = Carbon::createFromFormat('d/m/Y', $history['start_date'])->toDateString();
     			$his->end_date = Carbon::createFromFormat('d/m/Y', $history['end_date'])->toDateString();
     			$his->honor_type = $history['honor_type'];
-    			$his->honor = $history['honor'];
+                $his->honor = $history['honor'];
+    			$his->notes = $history['notes'];
     			$his->active = '1';
     			$his->created_by = $request->user()->user_id;
 
@@ -394,7 +397,8 @@ class FreelancerController extends Controller
     	$start_date = $request->input('start_date');
     	$end_date = $request->input('end_date');
     	$honor_type = $request->input('honor_type');
-    	$honor = $request->input('honor');
+        $honor = $request->input('honor');
+    	$notes = $request->input('notes');
 
     	$history = array();
     	$history['division_id'] = $division_id;
@@ -406,7 +410,8 @@ class FreelancerController extends Controller
     	$history['start_date'] = $start_date;
     	$history['end_date'] = $end_date;
     	$history['honor_type'] = $honor_type;
-    	$history['honor'] = $honor;
+        $history['honor'] = $honor;
+    	$history['notes'] = $notes;
 
     	$histories = array();
     	if($request->session()->has('histories_' . $request->user()->user_id)) {

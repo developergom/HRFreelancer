@@ -169,6 +169,7 @@
 				                                    <th data-column-id="end_date" data-order="asc">End Date</th>
 				                                    <th data-column-id="honor_type" data-order="asc">Honor Type</th>
 				                                    <th data-column-id="honor" data-order="asc">Honor</th>
+				                                    <th data-column-id="notes" data-order="asc">Notes</th>
 				                                </tr>
 				                            </thead>
 				                            <tbody>
@@ -181,6 +182,7 @@
 				                            		<td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $history->end_date)->format('d/m/Y') }}</td>
 				                            		<td>{{ $history->honor_type }}</td>
 				                            		<td>{{ number_format($history->honor) }}</td>
+				                            		<td>{{ $history->notes }}</td>
 				                            	</tr>
 				                            @endforeach
 				                            </tbody>

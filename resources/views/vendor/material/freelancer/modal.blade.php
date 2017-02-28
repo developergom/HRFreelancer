@@ -86,6 +86,15 @@
                             <small class="help-block"></small>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="modal_notes" class="col-sm-2 control-label">Notes</label>
+                        <div class="col-sm-10">
+                            <div class="fg-line">
+                                <textarea class="form-control input-sm" name="modal_notes" id="modal_notes" placeholder="Notes">{{ old('modal_notes') }}</textarea>
+                            </div>
+                            <small class="help-block"></small>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

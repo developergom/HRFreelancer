@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Gate;
+use Mail;
+
+use App\Jobs\TestJob;
 
 use App\User;
 use App\Freelancer;
@@ -297,6 +300,22 @@ class HomeController extends Controller
         $nik = \Illuminate\Support\Facades\Crypt::make('025407');
         //dd($nik);
         //dd($data);
+    }
+
+    public function testmail()
+    {
+        $data = array();
+        $data['waktu'] = date('Y-m-d H:i:s');
+        Mail::send('vendor.material.mail.testmail', array('data'=>$data), function($message) {
+            $message->to('soniibrol2011@gmail.com', 'Soni Ibrol')->subject('Email dari Laravel - HR Freelancer');
+            //$message->attach('img/profile-menu.png');
+            /*$message->bcc('soni@gramedia-majalah.com', 'Administrator');
+            $pdf = 'ini jadi pdf';
+            $message->attachData($pdf, 'ini.pdf', ['mime' => 'application/x-pdf']);*/
+        });
+        /*$job = (new TestJob())->delay(60*2);
+
+        $this->dispatch($job);*/
     }
 
     private function generateStartEndDatePerYear($year) {
